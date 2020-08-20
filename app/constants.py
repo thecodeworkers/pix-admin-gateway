@@ -15,3 +15,5 @@ PORT = os.getenv('PORT', 5000)
 
 DEBUG = os.getenv('DEBUG', False)
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'production')
+
+RESOURCES_HOST = os.getenv('RESOURCES_HOST', 'localhost:50051')

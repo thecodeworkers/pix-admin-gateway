@@ -4,12 +4,14 @@ from ..bootstrap import app
 from ..controllers import  *
 
 class AllQuerys(
-
+    CurrencyQuery,
+    LanguageQuery
 ):
     pass
 
 class AllMutations(
-    
+    CurrencyMutation,
+    LanguageMutation
 ):
     pass
 
