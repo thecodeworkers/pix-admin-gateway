@@ -17,3 +17,4 @@ DEBUG = os.getenv('DEBUG', False)
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'production')
 
 RESOURCES_HOST = os.getenv('RESOURCES_HOST', 'localhost:50051')
+BANKS_HOST = os.getenv('BANKS_HOST', 'localhost:50054')

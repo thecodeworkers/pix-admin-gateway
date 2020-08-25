@@ -5,13 +5,15 @@ from ..controllers import  *
 
 class AllQuerys(
     CurrencyQuery,
-    LanguageQuery
+    LanguageQuery,
+    AmericanBankQuery
 ):
     pass
 
 class AllMutations(
     CurrencyMutation,
-    LanguageMutation
+    LanguageMutation,
+    AmericanBankMutation
 ):
     pass
 
