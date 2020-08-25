@@ -7,11 +7,11 @@ import grpc
 
 class CreateAmericanBank(Mutation):
     class Arguments:
-        america_bank_data = AmericanBankNotIdInput(required=True)
+        american_bank_data = AmericanBankNotIdInput(required=True)
 
-    american_bank = Field(AmericanBank)
+    american = Field(AmericanBank)
 
-    def mutate(self, info, american_bank_data=None):
+    def mutate(self, info, american_bank_data):
         try:
             request = sender.AmericanBankNotIdRequest(**american_bank_data)
             response = stub.save(request)
@@ -26,7 +26,7 @@ class UpdateAmericanBank(Mutation):
     class Arguments:
         american_bank_data = AmericanBankInput(required=True)
 
-    american_bank = Field(AmericanBank)
+    american = Field(AmericanBank)
 
     def mutate(self, info, american_bank_data=None):
         try:
