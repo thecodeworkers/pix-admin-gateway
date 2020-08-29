@@ -5,13 +5,19 @@ from ..controllers import  *
 
 class AllQuerys(
     CurrencyQuery,
-    LanguageQuery
+    LanguageQuery,
+    CountryQuery,
+    StateQuery,
+    CityQuery
 ):
     pass
 
 class AllMutations(
     CurrencyMutation,
-    LanguageMutation
+    LanguageMutation,
+    CountryMutation,
+    StateMutation,
+    CityMutation
 ):
     pass
 
