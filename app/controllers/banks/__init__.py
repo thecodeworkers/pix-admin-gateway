@@ -1,1 +1,3 @@
 from .american_banks import AmericanBankMutation, AmericanBankQuery
+from .european_banks import EuropeanBankMutation, EuropeanBankQuery
+from .latin_american_banks import LatinAmericanBankMutation, LatinAmericanBankQuery

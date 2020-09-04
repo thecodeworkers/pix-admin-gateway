@@ -6,14 +6,18 @@ from ..controllers import  *
 class AllQuerys(
     CurrencyQuery,
     LanguageQuery,
-    AmericanBankQuery
+    AmericanBankQuery,
+    EuropeanBankQuery,
+    LatinAmericanBankQuery
 ):
     pass
 
 class AllMutations(
     CurrencyMutation,
     LanguageMutation,
-    AmericanBankMutation
+    AmericanBankMutation,
+    EuropeanBankMutation,
+    LatinAmericanBankMutation
 ):
     pass
 
