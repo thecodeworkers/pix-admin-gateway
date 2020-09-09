@@ -1,5 +1,5 @@
 from ...controller import GrpcConnect
 
-currency_grpc = GrpcConnect('banks', 'european_banks')
-sender = currency_grpc.sender
-stub = currency_grpc.stub
+european_bank_grpc = GrpcConnect('banks', 'european_banks')
+sender = european_bank_grpc.sender
+stub = european_bank_grpc.stub

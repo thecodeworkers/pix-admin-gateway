@@ -8,7 +8,8 @@ class AllQuerys(
     LanguageQuery,
     AmericanBankQuery,
     EuropeanBankQuery,
-    LatinAmericanBankQuery
+    LatinAmericanBankQuery,
+    CreditCardQuery
 ):
     pass
 
@@ -17,7 +18,8 @@ class AllMutations(
     LanguageMutation,
     AmericanBankMutation,
     EuropeanBankMutation,
-    LatinAmericanBankMutation
+    LatinAmericanBankMutation,
+    CreditCardMutation
 ):
     pass
 

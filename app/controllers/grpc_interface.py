@@ -1,4 +1,4 @@
-from ..protos import currency_pb2, currency_pb2_grpc, language_pb2, language_pb2_grpc, american_banks_pb2, american_banks_pb2_grpc, latinamerican_banks_pb2, latinamerican_banks_pb2_grpc, european_banks_pb2, european_banks_pb2_grpc
+from ..protos import currency_pb2, currency_pb2_grpc, language_pb2, language_pb2_grpc, american_banks_pb2, american_banks_pb2_grpc, latinamerican_banks_pb2, latinamerican_banks_pb2_grpc, european_banks_pb2, european_banks_pb2_grpc, credit_cards_pb2_grpc, credit_cards_pb2
 from ..bootstrap import init_server
 from ..constants import *
 
@@ -28,6 +28,10 @@ microservices = {
             'latin_american_banks': {
                 'stub': latinamerican_banks_pb2_grpc.LatinAmericanBanksStub(init_server(BANKS_HOST)),
                 'sender': latinamerican_banks_pb2
+            },
+            'credit_cards': {
+                'stub': credit_cards_pb2_grpc.CreditCardsStub(init_server(BANKS_HOST)),
+                'sender': credit_cards_pb2
             },
         }
     }
