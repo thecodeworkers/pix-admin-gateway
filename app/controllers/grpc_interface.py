@@ -1,8 +1,20 @@
-from ..protos import currency_pb2, currency_pb2_grpc, language_pb2, language_pb2_grpc, american_banks_pb2, american_banks_pb2_grpc, latinamerican_banks_pb2, latinamerican_banks_pb2_grpc, european_banks_pb2, european_banks_pb2_grpc, credit_cards_pb2_grpc, credit_cards_pb2
+from ..protos import currency_pb2, currency_pb2_grpc, language_pb2, language_pb2_grpc, american_banks_pb2, american_banks_pb2_grpc, latinamerican_banks_pb2, latinamerican_banks_pb2_grpc, european_banks_pb2, european_banks_pb2_grpc, credit_cards_pb2_grpc, credit_cards_pb2, auth_pb2, auth_pb2_grpc, role_pb2, role_pb2_grpc
 from ..bootstrap import init_server
 from ..constants import *
 
 microservices = {
+    'authentication': {
+        'services': {
+            'auth' : {
+                'stub': auth_pb2_grpc.AuthStub(init_server(AUTHENTICATION_HOST)),
+                'sender': auth_pb2
+            },
+            'role': {
+                'stub': role_pb2_grpc.RoleStub(init_server(AUTHENTICATION_HOST)),
+                'sender': role_pb2
+            }
+        }
+    },
     'resources': {
         'services': {
             'currencies': {
