@@ -6,3 +6,6 @@ from .latinamerican_bank import LatinAmericanBank, LatinAmericanBankInput, Latin
 from .credit_card import CreditCard, CreditCardInput, CreditCardNotIdInput
 from .auth import Auth, AuthResponse
 from .role import Role, RoleInput, RoleNotIdInput
+from .country import Country, CountryInput, CountryNotIdInput
+from .state import State, StateInput, StateNotIdInput
+from .city import City, CityInput, CityNotIdInput

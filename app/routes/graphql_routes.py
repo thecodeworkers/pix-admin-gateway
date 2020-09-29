@@ -10,9 +10,11 @@ class AllQuerys(
     EuropeanBankQuery,
     LatinAmericanBankQuery,
     CreditCardQuery,
-    RoleQuery
-):
-    pass
+    RoleQuery,
+    CountryQuery,
+    StateQuery,
+    CityQuery
+): pass
 
 class AllMutations(
     CurrencyMutation,
@@ -22,9 +24,11 @@ class AllMutations(
     LatinAmericanBankMutation,
     CreditCardMutation,
     AuthMutation,
-    RoleMutation
-):
-    pass
+    RoleMutation,
+    CountryMutation,
+    StateMutation,
+    CityMutation
+): pass
 
 
 schema = Schema(

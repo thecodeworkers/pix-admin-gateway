@@ -1,11 +1,11 @@
-from ..protos import currency_pb2, currency_pb2_grpc, language_pb2, language_pb2_grpc, american_banks_pb2, american_banks_pb2_grpc, latinamerican_banks_pb2, latinamerican_banks_pb2_grpc, european_banks_pb2, european_banks_pb2_grpc, credit_cards_pb2_grpc, credit_cards_pb2, auth_pb2, auth_pb2_grpc, role_pb2, role_pb2_grpc
+from ..protos import currency_pb2, currency_pb2_grpc, language_pb2, language_pb2_grpc, american_banks_pb2, american_banks_pb2_grpc, latinamerican_banks_pb2, latinamerican_banks_pb2_grpc, european_banks_pb2, european_banks_pb2_grpc, credit_cards_pb2_grpc, credit_cards_pb2, auth_pb2, auth_pb2_grpc, role_pb2, role_pb2_grpc, country_pb2_grpc, country_pb2, state_pb2, state_pb2_grpc, city_pb2, city_pb2_grpc
 from ..bootstrap import init_server
 from ..constants import *
 
 microservices = {
     'authentication': {
         'services': {
-            'auth' : {
+            'auth': {
                 'stub': auth_pb2_grpc.AuthStub(init_server(AUTHENTICATION_HOST)),
                 'sender': auth_pb2
             },
@@ -44,7 +44,23 @@ microservices = {
             'credit_cards': {
                 'stub': credit_cards_pb2_grpc.CreditCardsStub(init_server(BANKS_HOST)),
                 'sender': credit_cards_pb2
+            }
+        }
+    },
+    'countries': {
+        'services': {
+            'countries': {
+                'stub': country_pb2_grpc.CountryStub(init_server(COUNTRIES_HOST)),
+                'sender': country_pb2
             },
+            'states': {
+                'stub': state_pb2_grpc.StateStub(init_server(COUNTRIES_HOST)),
+                'sender': state_pb2
+            },
+            'cities': {
+                'stub': city_pb2_grpc.CityStub(init_server(COUNTRIES_HOST)),
+                'sender': city_pb2
+            }
         }
     }
 }

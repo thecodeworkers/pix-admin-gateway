@@ -1,2 +1,2 @@
-from .role_query import RoleQuery
-from .role_mutation import RoleMutation
+from .roles_query import RoleQuery
+from .roles_mutation import RoleMutation
