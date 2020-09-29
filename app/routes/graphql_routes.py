@@ -9,7 +9,8 @@ class AllQuerys(
     AmericanBankQuery,
     EuropeanBankQuery,
     LatinAmericanBankQuery,
-    CreditCardQuery
+    CreditCardQuery,
+    RoleQuery
 ):
     pass
 
@@ -19,7 +20,9 @@ class AllMutations(
     AmericanBankMutation,
     EuropeanBankMutation,
     LatinAmericanBankMutation,
-    CreditCardMutation
+    CreditCardMutation,
+    AuthMutation,
+    RoleMutation
 ):
     pass
 
