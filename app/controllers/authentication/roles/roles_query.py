@@ -1,6 +1,6 @@
 from graphene import ObjectType, Field, List, String
 from google.protobuf.json_format import MessageToDict
-from .role_controller import sender, stub
+from .roles_controller import sender, stub
 from ....types import Role
 from ....utils import message_error
 import grpc
