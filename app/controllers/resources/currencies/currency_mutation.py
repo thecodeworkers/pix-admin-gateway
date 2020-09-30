@@ -8,13 +8,15 @@ import grpc
 class CreateCurrency(Mutation):
     class Arguments:
         currency_data = CurrencyNotIdInput(required=True)
+        auth_token=String(required=True)
 
     currency = Field(Currency)
 
-    def mutate(self, info, currency_data=None):
+    def mutate(self, info, currency_data, auth_token):
         try:
             request = sender.CurrencyNotIdRequest(**currency_data)
-            response = stub.save(request)
+            metadata = [('auth_token', auth_token)]
+            response = stub.save(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             return CreateCurrency(**response)
@@ -25,13 +27,15 @@ class CreateCurrency(Mutation):
 class UpdateCurrency(Mutation):
     class Arguments:
         currency_data = CurrencyInput(required=True)
+        auth_token=String(required=True)
 
     currency = Field(Currency)
 
-    def mutate(self, info, currency_data=None):
+    def mutate(self, info, currency_data, auth_token):
         try:
             request = sender.CurrencyRequest(**currency_data)
-            response = stub.update(request)
+            metadata = [('auth_token', auth_token)]
+            response = stub.update(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             return CreateCurrency(**response)
@@ -42,13 +46,16 @@ class UpdateCurrency(Mutation):
 class DeleteCurrency(Mutation):
     class Arguments:
         id = String(required=True)
+        auth_token=String(required=True)
 
     ok = Boolean()
 
-    def mutate(self, info, id):
+    def mutate(self, info, id, auth_token):
         try:
             request = sender.CurrencyIdRequest(id=id)
-            stub.delete(request)
+            metadata = [('auth_token', auth_token)]
+            
+            stub.delete(request=request, metadata=metadata)
     
             return DeleteCurrency(ok=True)
 

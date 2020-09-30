@@ -5,12 +5,13 @@ from ....types import Language
 import grpc
 
 class LanguageQuery(ObjectType):
-    languages = List(Language)
+    languages = List(Language, auth_token=String(required=True))
 
-    def resolve_languages(root, info):
+    def resolve_languages(root, info, auth_token):
         try:
             request = sender.LanguageEmpty()
-            response = stub.get_all(request)
+            metadata = [('auth_token', auth_token)]
+            response = stub.get_all(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             if 'language' in response:

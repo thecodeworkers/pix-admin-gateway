@@ -6,13 +6,14 @@ from ....utils import message_error
 import grpc
 
 class RoleQuery(ObjectType):
-    roles = List(Role)
-    role = Field(Role, id=String(required=True))
+    roles = List(Role, auth_token=String(required=True))
+    role = Field(Role, id=String(required=True), auth_token=String(required=True))
 
-    def resolve_roles(root, info):
+    def resolve_roles(root, info, auth_token):
         try:
             request = sender.RoleEmpty()
-            response = stub.get_all(request)
+            metadata = [('auth_token', auth_token)]
+            response = stub.get_all(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             if 'role' in response:
@@ -23,10 +24,11 @@ class RoleQuery(ObjectType):
         except grpc.RpcError as e:
             raise Exception(message_error(e))
 
-    def resolve_role(root, info, id):
+    def resolve_role(root, info, id, auth_token):
         try:
             request = sender.RoleIdRequest(id=id)
-            response = stub.get(request)
+            metadata = [('auth_token', auth_token)]
+            response = stub.get(request=request, metadata=metadata)
             response = MessageToDict(response)
 
             if 'role' in response:

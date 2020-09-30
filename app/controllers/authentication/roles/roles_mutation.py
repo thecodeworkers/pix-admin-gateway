@@ -8,13 +8,16 @@ import grpc
 class CreateRole(Mutation):
     class Arguments:
         role_data = RoleNotIdInput(required=True)
+        auth_token = String(required=True)
 
     role = Field(Role)
 
-    def mutate(self, info, role_data):
+    def mutate(self, info, role_data, auth_token):
         try:
             request = sender.RoleNotIdRequest(**role_data)
-            response = stub.save(request)
+            metadata = [('auth_token', auth_token)]
+            
+            response = stub.save(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             return CreateRole(**response)
@@ -25,13 +28,16 @@ class CreateRole(Mutation):
 class UpdateRole(Mutation):
     class Arguments:
         role_data = RoleInput(required=True)
+        auth_token = String(required=True)
 
-    american = Field(Role)
+    role = Field(Role)
 
-    def mutate(self, info, role_data=None):
+    def mutate(self, info, role_data, auth_token):
         try:
             request = sender.RoleRequest(**role_data)
-            response = stub.update(request)
+            metadata = [('auth_token', auth_token)]
+            
+            response = stub.update(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             return UpdateRole(**response)
@@ -42,13 +48,16 @@ class UpdateRole(Mutation):
 class DeleteRole(Mutation):
     class Arguments:
         id = String(required=True)
+        auth_token = String(required=True)
 
     ok = Boolean()
 
-    def mutate(self, info, id):
+    def mutate(self, info, id, auth_token):
         try:
             request = sender.RoleIdRequest(id=id)
-            stub.delete(request)
+            metadata = [('auth_token', auth_token)]
+            
+            stub.delete(request=request, metadata=metadata)
     
             return DeleteRole(ok=True)
 

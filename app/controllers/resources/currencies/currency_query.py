@@ -6,13 +6,14 @@ from ....utils import message_error
 import grpc
 
 class CurrencyQuery(ObjectType):
-    currencies = List(Currency)
-    currency = Field(Currency, id=String(required=True))
+    currencies = List(Currency, auth_token=String(required=True))
+    currency = Field(Currency, id=String(required=True), auth_token=String(required=True))
 
-    def resolve_currencies(root, info):
+    def resolve_currencies(root, info, auth_token):
         try:
             request = sender.CurrencyEmpty()
-            response = stub.get_all(request)
+            metadata = [('auth_token', auth_token)]
+            response = stub.get_all(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             if 'currency' in response:
@@ -23,10 +24,11 @@ class CurrencyQuery(ObjectType):
         except grpc.RpcError as e:
             raise Exception(message_error(e))
 
-    def resolve_currency(root, info, id):
+    def resolve_currency(root, info, id, auth_token):
         try:
             request = sender.CurrencyIdRequest(id=id)
-            response = stub.get(request)
+            metadata = [('auth_token', auth_token)]
+            response = stub.get(request=request, metadata=metadata)
             response = MessageToDict(response)
 
             if 'currency' in response:
