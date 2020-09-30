@@ -7,7 +7,3 @@ class Auth(InputObjectType):
 class AuthObject(ObjectType):
     email = String(required=True)
     username = String(required=True)
-
-class AuthResponse(ObjectType):
-    auth = AuthObject()
-    authToken = String()

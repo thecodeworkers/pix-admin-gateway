@@ -8,13 +8,16 @@ import grpc
 class CreateState(Mutation):
 	class Arguments:
 		state_data = StateNotIdInput(required=True)
+		auth_token = String(required=True)
 	
 	state = Field(State)
 
-	def mutate(self, info, state_data=None):
+	def mutate(self, info, state_data, auth_token):
 		try:
 			request = sender.StateNotIdRequest(**state_data)
-			response = stub.save(request)
+			metadata = [('auth_token', auth_token)]
+
+			response = stub.save(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
 			return CreateState(**response)
@@ -25,13 +28,16 @@ class CreateState(Mutation):
 class UpdateState(Mutation):
 	class Arguments:
 		state_data = StateInput(required=True)
+		auth_token = String(required=True)
 
 	state = Field(State)
 
-	def mutate(self, info, state_data=None):
+	def mutate(self, info, state_data, auth_token):
 		try:
 			request = sender.StateRequest(**state_data)
-			response = stub.update(request)
+			metadata = [('auth_token', auth_token)]
+
+			response = stub.update(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
 			return CreateState(**response)
@@ -42,13 +48,16 @@ class UpdateState(Mutation):
 class DeleteState(Mutation):
 	class Arguments:
 		id = String(required=True)
+		auth_token = String(required=True)
 
 	ok = Boolean()
 
-	def mutate(self, info, id):
+	def mutate(self, info, id, auth_token):
 		try:
 			request = sender.StateIdRequest(id=id)
-			stub.delete(request)
+			metadata = [('auth_token', auth_token)]
+
+			stub.delete(request=request, metadata=metadata)
 
 			return DeleteState(ok=True)
 

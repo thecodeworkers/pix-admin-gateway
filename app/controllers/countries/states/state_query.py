@@ -6,27 +6,29 @@ from ....utils import message_error
 import grpc
 
 class StateQuery(ObjectType):
-	states = List(State)
-	state = Field(State, id=String(required=True))
+	states = List(State, auth_token=String(required=True))
+	state = Field(State, id=String(required=True), auth_token=String(required=True))
 	state_id = List(State)
 
-	def resolve_states(root, info):
+	def resolve_states(root, info, auth_token):
 		try:
 			request = sender.StateEmpty()
-			response = stub.get_all(request)
+			metadata = [('auth_token', auth_token)]
+			response = stub.get_all(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
 			if 'state' in response:
 				return response['state']
 			
 			return response
-		except grp.RpcError as error:
+		except grpc.RpcError as error:
 			raise Exception(message_error(error))
 
-	def resolve_state(root, info, id):
+	def resolve_state(root, info, id, auth_token):
 		try:
 			request = sender.StateIdRequest(id=id)
-			response = stub.get(request)
+			metadata = [('auth_token', auth_token)]
+			response = stub.get(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
 			if 'state' in response:

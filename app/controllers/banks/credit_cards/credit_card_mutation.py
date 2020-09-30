@@ -8,13 +8,16 @@ import grpc
 class CreateCreditCard(Mutation):
     class Arguments:
         credit_card_data = CreditCardNotIdInput(required=True)
+        auth_token = String(required=True)
 
     credit = Field(CreditCard)
 
-    def mutate(self, info, credit_card_data):
+    def mutate(self, info, credit_card_data, auth_token):
         try:
             request = sender.CreditCardNotIdRequest(**credit_card_data)
-            response = stub.save(request)
+            metadata = [('auth_token', auth_token)]
+            
+            response = stub.save(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             return CreateCreditCard(**response)
@@ -25,13 +28,16 @@ class CreateCreditCard(Mutation):
 class UpdateCreditCard(Mutation):
     class Arguments:
         credit_card_data = CreditCardInput(required=True)
+        auth_token = String(required=True)
 
     credit = Field(CreditCard)
 
-    def mutate(self, info, credit_card_data=None):
+    def mutate(self, info, credit_card_data, auth_token):
         try:
             request = sender.CreditCardRequest(**credit_card_data)
-            response = stub.update(request)
+            metadata = [('auth_token', auth_token)]
+            
+            response = stub.update(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             return UpdateCreditCard(**response)
@@ -42,13 +48,16 @@ class UpdateCreditCard(Mutation):
 class DeleteCreditCard(Mutation):
     class Arguments:
         id = String(required=True)
+        auth_token = String(required=True)
 
     ok = Boolean()
 
-    def mutate(self, info, id):
+    def mutate(self, info, id, auth_token):
         try:
             request = sender.CreditCardIdRequest(id=id)
-            stub.delete(request)
+            metadata = [('auth_token', auth_token)]
+            
+            stub.delete(request=request, metadata=metadata)
     
             return DeleteCreditCard(ok=True)
 

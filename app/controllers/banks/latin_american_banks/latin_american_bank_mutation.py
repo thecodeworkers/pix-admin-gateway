@@ -8,13 +8,16 @@ import grpc
 class CreateLatinAmericanBank(Mutation):
     class Arguments:
         latin_american_bank_data = LatinAmericanBankNotIdInput(required=True)
+        auth_token = String(required=True)
 
     latin = Field(LatinAmericanBank)
 
-    def mutate(self, info, latin_american_bank_data):
+    def mutate(self, info, latin_american_bank_data, auth_token):
         try:
             request = sender.LatinAmericanBankNotIdRequest(**latin_american_bank_data)
-            response = stub.save(request)
+            metadata = [('auth_token', auth_token)]
+            
+            response = stub.save(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             return CreateLatinAmericanBank(**response)
@@ -25,13 +28,16 @@ class CreateLatinAmericanBank(Mutation):
 class UpdateLatinAmericanBank(Mutation):
     class Arguments:
         latin_american_bank_data = LatinAmericanBankInput(required=True)
+        auth_token = String(required=True)
 
     latin = Field(LatinAmericanBank)
 
-    def mutate(self, info, latin_american_bank_data=None):
+    def mutate(self, info, latin_american_bank_data, auth_token):
         try:
             request = sender.LatinAmericanBankRequest(**latin_american_bank_data)
-            response = stub.update(request)
+            metadata = [('auth_token', auth_token)]
+            
+            response = stub.update(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             return UpdateLatinAmericanBank(**response)
@@ -42,13 +48,16 @@ class UpdateLatinAmericanBank(Mutation):
 class DeleteLatinAmericanBank(Mutation):
     class Arguments:
         id = String(required=True)
+        auth_token = String(required=True)
 
     ok = Boolean()
 
-    def mutate(self, info, id):
+    def mutate(self, info, id, auth_token):
         try:
             request = sender.LatinAmericanBankIdRequest(id=id)
-            stub.delete(request)
+            metadata = [('auth_token', auth_token)]
+            
+            stub.delete(request=request, metadata=metadata)
     
             return DeleteLatinAmericanBank(ok=True)
 

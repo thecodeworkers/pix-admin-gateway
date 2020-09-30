@@ -8,13 +8,16 @@ import grpc
 class CreateCountry(Mutation):
 	class Arguments:
 		country_data = CountryNotIdInput(required=True)
+		auth_token = String(required=True)
 	
 	country = Field(Country)
 
-	def mutate(self, info, country_data=None):
+	def mutate(self, info, country_data, auth_token):
 		try:
 			request = sender.CountryNotIdRequest(**country_data)
-			response = stub.save(request)
+			metadata = [('auth_token', auth_token)]
+
+			response = stub.save(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
 			return CreateCountry(**response)
@@ -25,13 +28,16 @@ class CreateCountry(Mutation):
 class UpdateCountry(Mutation):
 	class Arguments:
 		country_data = CountryInput(required=True)
+		auth_token = String(required=True)
 
 	country = Field(Country)
 
-	def mutate(self, info, country_data=None):
+	def mutate(self, info, country_data, auth_token):
 		try:
 			request = sender.CountryRequest(**country_data)
-			response = stub.update(request)
+			metadata = [('auth_token', auth_token)]
+
+			response = stub.update(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
 			return CreateCountry(**response)
@@ -42,13 +48,15 @@ class UpdateCountry(Mutation):
 class DeleteCountry(Mutation):
 	class Arguments:
 		id = String(required=True)
+		auth_token = String(required=True)
 
 	ok = Boolean()
 
-	def mutate(self, info, id):
+	def mutate(self, info, id, auth_token):
 		try:
 			request = sender.CountryIdRequest(id=id)
-			stub.delete(request)
+			metadata = [('auth_token', auth_token)]
+			stub.delete(request=request, metadata=metadata)
 
 			return DeleteCountry(ok=True)
 

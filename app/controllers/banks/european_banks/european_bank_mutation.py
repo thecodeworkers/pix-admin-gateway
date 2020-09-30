@@ -8,13 +8,16 @@ import grpc
 class CreateEuropeanBank(Mutation):
     class Arguments:
         european_bank_data = EuropeanBankNotIdInput(required=True)
+        auth_token = String(required=True)
 
     european = Field(EuropeanBank)
 
-    def mutate(self, info, european_bank_data):
+    def mutate(self, info, european_bank_data, auth_token):
         try:
             request = sender.EuropeanBankNotIdRequest(**european_bank_data)
-            response = stub.save(request)
+            metadata = [('auth_token', auth_token)]
+            
+            response = stub.save(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             return CreateEuropeanBank(**response)
@@ -25,13 +28,16 @@ class CreateEuropeanBank(Mutation):
 class UpdateEuropeanBank(Mutation):
     class Arguments:
         european_bank_data = EuropeanBankInput(required=True)
+        auth_token = String(required=True)
 
     european = Field(EuropeanBank)
 
-    def mutate(self, info, european_bank_data=None):
+    def mutate(self, info, european_bank_data, auth_token):
         try:
             request = sender.EuropeanBankRequest(**european_bank_data)
-            response = stub.update(request)
+            metadata = [('auth_token', auth_token)]
+            
+            response = stub.update(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             return UpdateEuropeanBank(**response)
@@ -42,13 +48,16 @@ class UpdateEuropeanBank(Mutation):
 class DeleteEuropeanBank(Mutation):
     class Arguments:
         id = String(required=True)
+        auth_token = String(required=True)
 
     ok = Boolean()
 
-    def mutate(self, info, id):
+    def mutate(self, info, id, auth_token):
         try:
             request = sender.EuropeanBankIdRequest(id=id)
-            stub.delete(request)
+            metadata = [('auth_token', auth_token)]
+            
+            stub.delete(request=request, metadata=metadata)
     
             return DeleteEuropeanBank(ok=True)
 

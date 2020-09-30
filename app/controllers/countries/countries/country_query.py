@@ -6,17 +6,25 @@ from ....utils import message_error
 import grpc
 
 class CountryQuery(ObjectType):
-	countries = List(Country)
-	country = Field(Country, id=String(required=True))
+	countries = List(Country, auth_token=String(required=True))
+	country = Field(Country, id=String(required=True), auth_token=String(required=True))
 	country_id = List(Country)
 
-	def resolve_countries(root, info):
+	def resolve_countries(root, info, auth_token):
 		try:
 			request = sender.CountryEmpty()
-			response = stub.get_all(request)
+			metadata = [('auth_token', auth_token)]
+			response = stub.get_all(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
 			if 'country' in response:
+				count = 0
+				for country in response['country']:
+					country['phone_prefix'] = country["phonePrefix"]
+					del country['phonePrefix']
+					response['country'][count] = country
+					count+=1
+				
 				return response['country']
 
 			return response
@@ -24,13 +32,16 @@ class CountryQuery(ObjectType):
 		except grpc.RpcError as error:
 			raise Exception(message_error(error))
 
-	def resolve_country(root, info, id):
+	def resolve_country(root, info, id, auth_token):
 		try:
 			request = sender.CountryIdRequest(id=id)
-			response = stub.get(request)
+			metadata = [('auth_token', auth_token)]
+			response = stub.get(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
 			if 'country' in response:
+				response['country']['phone_prefix'] = response['country']["phonePrefix"]
+				del response['country']['phonePrefix']
 				return response['country']
 
 			return response	
