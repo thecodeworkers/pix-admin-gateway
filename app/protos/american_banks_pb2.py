@@ -19,60 +19,10 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto2',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x14\x61merican_banks.proto\"\x13\n\x11\x41mericanBankEmpty\"#\n\x15\x41mericanBankIdRequest\x12\n\n\x02id\x18\x01 \x02(\t\"\x89\x02\n\x18\x41mericanBankNotIdRequest\x12\x15\n\rroutingNumber\x18\x01 \x02(\t\x12\x10\n\x08\x62\x61nkName\x18\x02 \x02(\t\x12\x10\n\x08\x66ullName\x18\x03 \x02(\t\x12\r\n\x05swift\x18\x04 \x02(\t\x12\x0b\n\x03\x61\x63h\x18\x05 \x01(\t\x12\x15\n\rnumberAccount\x18\x06 \x02(\t\x12,\n\x04type\x18\x07 \x02(\x0e\x32\x1e.AmericanBankNotIdRequest.Type\x12\x1e\n\x16\x64ocumentIdentification\x18\x08 \x02(\t\x12\x10\n\x08\x63urrency\x18\t \x02(\t\"\x1f\n\x04Type\x12\n\n\x06saving\x10\x00\x12\x0b\n\x07\x63urrent\x10\x01\"\x8b\x02\n\x13\x41mericanBankRequest\x12\n\n\x02id\x18\x01 \x02(\t\x12\x15\n\rroutingNumber\x18\x02 \x02(\t\x12\x10\n\x08\x62\x61nkName\x18\x03 \x02(\t\x12\x10\n\x08\x66ullName\x18\x04 \x02(\t\x12\r\n\x05swift\x18\x05 \x02(\t\x12\x0b\n\x03\x61\x63h\x18\x06 \x01(\t\x12\x15\n\rnumberAccount\x18\x07 \x02(\t\x12\'\n\x04type\x18\x08 \x02(\x0e\x32\x19.AmericanBankRequest.Type\x12\x1e\n\x16\x64ocumentIdentification\x18\t \x02(\t\x12\x10\n\x08\x63urrency\x18\n \x02(\t\"\x1f\n\x04Type\x12\n\n\x06saving\x10\x00\x12\x0b\n\x07\x63urrent\x10\x01\"O\n\x19\x41mericanBanksTableRequest\x12\x0c\n\x04page\x18\x01 \x02(\x05\x12\x14\n\x08per_page\x18\x02 \x01(\x05:\x02\x31\x35\x12\x0e\n\x06search\x18\x03 \x01(\t\"?\n\x15\x41mericanBanksResponse\x12&\n\x08\x61merican\x18\x01 \x02(\x0b\x32\x14.AmericanBankRequest\"G\n\x1d\x41mericanBanksMultipleResponse\x12&\n\x08\x61merican\x18\x01 \x03(\x0b\x32\x14.AmericanBankRequest\"\x89\x01\n\x1a\x41mericanBanksTableResponse\x12#\n\x05items\x18\x01 \x03(\x0b\x32\x14.AmericanBankRequest\x12\x0c\n\x04page\x18\x02 \x02(\x05\x12\x10\n\x08per_page\x18\x03 \x02(\x05\x12\x13\n\x0btotal_items\x18\x04 \x02(\x05\x12\x11\n\tnum_pages\x18\x05 \x02(\x05\x32\xf4\x02\n\rAmericanBanks\x12@\n\x05table\x12\x1a.AmericanBanksTableRequest\x1a\x1b.AmericanBanksTableResponse\x12=\n\x07get_all\x12\x12.AmericanBankEmpty\x1a\x1e.AmericanBanksMultipleResponse\x12\x35\n\x03get\x12\x16.AmericanBankIdRequest\x1a\x16.AmericanBanksResponse\x12\x39\n\x04save\x12\x19.AmericanBankNotIdRequest\x1a\x16.AmericanBanksResponse\x12\x36\n\x06update\x12\x14.AmericanBankRequest\x1a\x16.AmericanBanksResponse\x12\x38\n\x06\x64\x65lete\x12\x16.AmericanBankIdRequest\x1a\x16.AmericanBanksResponse'
+  serialized_pb=b'\n\x14\x61merican_banks.proto\"\x13\n\x11\x41mericanBankEmpty\"#\n\x15\x41mericanBankIdRequest\x12\n\n\x02id\x18\x01 \x02(\t\"R\n\x18\x41mericanBankNotIdRequest\x12\x15\n\rroutingNumber\x18\x01 \x02(\t\x12\x10\n\x08\x62\x61nkName\x18\x02 \x02(\t\x12\r\n\x05swift\x18\x03 \x02(\t\"Y\n\x13\x41mericanBankRequest\x12\n\n\x02id\x18\x01 \x02(\t\x12\x15\n\rroutingNumber\x18\x02 \x02(\t\x12\x10\n\x08\x62\x61nkName\x18\x03 \x02(\t\x12\r\n\x05swift\x18\x04 \x02(\t\"O\n\x19\x41mericanBanksTableRequest\x12\x0c\n\x04page\x18\x01 \x02(\x05\x12\x14\n\x08per_page\x18\x02 \x01(\x05:\x02\x31\x35\x12\x0e\n\x06search\x18\x03 \x01(\t\"?\n\x15\x41mericanBanksResponse\x12&\n\x08\x61merican\x18\x01 \x02(\x0b\x32\x14.AmericanBankRequest\"G\n\x1d\x41mericanBanksMultipleResponse\x12&\n\x08\x61merican\x18\x01 \x03(\x0b\x32\x14.AmericanBankRequest\"\x89\x01\n\x1a\x41mericanBanksTableResponse\x12#\n\x05items\x18\x01 \x03(\x0b\x32\x14.AmericanBankRequest\x12\x0c\n\x04page\x18\x02 \x02(\x05\x12\x10\n\x08per_page\x18\x03 \x02(\x05\x12\x13\n\x0btotal_items\x18\x04 \x02(\x05\x12\x11\n\tnum_pages\x18\x05 \x02(\x05\x32\xf4\x02\n\rAmericanBanks\x12@\n\x05table\x12\x1a.AmericanBanksTableRequest\x1a\x1b.AmericanBanksTableResponse\x12=\n\x07get_all\x12\x12.AmericanBankEmpty\x1a\x1e.AmericanBanksMultipleResponse\x12\x35\n\x03get\x12\x16.AmericanBankIdRequest\x1a\x16.AmericanBanksResponse\x12\x39\n\x04save\x12\x19.AmericanBankNotIdRequest\x1a\x16.AmericanBanksResponse\x12\x36\n\x06update\x12\x14.AmericanBankRequest\x1a\x16.AmericanBanksResponse\x12\x38\n\x06\x64\x65lete\x12\x16.AmericanBankIdRequest\x1a\x16.AmericanBanksResponse'
 )
 
 
-
-_AMERICANBANKNOTIDREQUEST_TYPE = _descriptor.EnumDescriptor(
-  name='Type',
-  full_name='AmericanBankNotIdRequest.Type',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='saving', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='current', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=317,
-  serialized_end=348,
-)
-_sym_db.RegisterEnumDescriptor(_AMERICANBANKNOTIDREQUEST_TYPE)
-
-_AMERICANBANKREQUEST_TYPE = _descriptor.EnumDescriptor(
-  name='Type',
-  full_name='AmericanBankRequest.Type',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='saving', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='current', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=317,
-  serialized_end=348,
-)
-_sym_db.RegisterEnumDescriptor(_AMERICANBANKREQUEST_TYPE)
 
 
 _AMERICANBANKEMPTY = _descriptor.Descriptor(
@@ -155,50 +105,8 @@ _AMERICANBANKNOTIDREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='fullName', full_name='AmericanBankNotIdRequest.fullName', index=2,
+      name='swift', full_name='AmericanBankNotIdRequest.swift', index=2,
       number=3, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='swift', full_name='AmericanBankNotIdRequest.swift', index=3,
-      number=4, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='ach', full_name='AmericanBankNotIdRequest.ach', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='numberAccount', full_name='AmericanBankNotIdRequest.numberAccount', index=5,
-      number=6, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='type', full_name='AmericanBankNotIdRequest.type', index=6,
-      number=7, type=14, cpp_type=8, label=2,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='documentIdentification', full_name='AmericanBankNotIdRequest.documentIdentification', index=7,
-      number=8, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='currency', full_name='AmericanBankNotIdRequest.currency', index=8,
-      number=9, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -208,7 +116,6 @@ _AMERICANBANKNOTIDREQUEST = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
-    _AMERICANBANKNOTIDREQUEST_TYPE,
   ],
   serialized_options=None,
   is_extendable=False,
@@ -216,8 +123,8 @@ _AMERICANBANKNOTIDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=83,
-  serialized_end=348,
+  serialized_start=82,
+  serialized_end=164,
 )
 
 
@@ -251,50 +158,8 @@ _AMERICANBANKREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='fullName', full_name='AmericanBankRequest.fullName', index=3,
+      name='swift', full_name='AmericanBankRequest.swift', index=3,
       number=4, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='swift', full_name='AmericanBankRequest.swift', index=4,
-      number=5, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='ach', full_name='AmericanBankRequest.ach', index=5,
-      number=6, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='numberAccount', full_name='AmericanBankRequest.numberAccount', index=6,
-      number=7, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='type', full_name='AmericanBankRequest.type', index=7,
-      number=8, type=14, cpp_type=8, label=2,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='documentIdentification', full_name='AmericanBankRequest.documentIdentification', index=8,
-      number=9, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='currency', full_name='AmericanBankRequest.currency', index=9,
-      number=10, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -304,7 +169,6 @@ _AMERICANBANKREQUEST = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
-    _AMERICANBANKREQUEST_TYPE,
   ],
   serialized_options=None,
   is_extendable=False,
@@ -312,8 +176,8 @@ _AMERICANBANKREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=351,
-  serialized_end=618,
+  serialized_start=166,
+  serialized_end=255,
 )
 
 
@@ -358,8 +222,8 @@ _AMERICANBANKSTABLEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=620,
-  serialized_end=699,
+  serialized_start=257,
+  serialized_end=336,
 )
 
 
@@ -390,8 +254,8 @@ _AMERICANBANKSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=701,
-  serialized_end=764,
+  serialized_start=338,
+  serialized_end=401,
 )
 
 
@@ -422,8 +286,8 @@ _AMERICANBANKSMULTIPLERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=766,
-  serialized_end=837,
+  serialized_start=403,
+  serialized_end=474,
 )
 
 
@@ -482,14 +346,10 @@ _AMERICANBANKSTABLERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=840,
-  serialized_end=977,
+  serialized_start=477,
+  serialized_end=614,
 )
 
-_AMERICANBANKNOTIDREQUEST.fields_by_name['type'].enum_type = _AMERICANBANKNOTIDREQUEST_TYPE
-_AMERICANBANKNOTIDREQUEST_TYPE.containing_type = _AMERICANBANKNOTIDREQUEST
-_AMERICANBANKREQUEST.fields_by_name['type'].enum_type = _AMERICANBANKREQUEST_TYPE
-_AMERICANBANKREQUEST_TYPE.containing_type = _AMERICANBANKREQUEST
 _AMERICANBANKSRESPONSE.fields_by_name['american'].message_type = _AMERICANBANKREQUEST
 _AMERICANBANKSMULTIPLERESPONSE.fields_by_name['american'].message_type = _AMERICANBANKREQUEST
 _AMERICANBANKSTABLERESPONSE.fields_by_name['items'].message_type = _AMERICANBANKREQUEST
@@ -568,8 +428,8 @@ _AMERICANBANKS = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=980,
-  serialized_end=1352,
+  serialized_start=617,
+  serialized_end=989,
   methods=[
   _descriptor.MethodDescriptor(
     name='table',

@@ -4,6 +4,7 @@ class AmericanBank(ObjectType):
     id = String()
     routingNumber = String()
     bankName = String()
+    swift = String()
 
 class AmericanBankNotIdInput(InputObjectType):
     routingNumber = String(required=True)

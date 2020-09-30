@@ -16,7 +16,6 @@ class CreateAmericanBank(Mutation):
         try:
             request = sender.AmericanBankNotIdRequest(**american_bank_data)
             metadata = [('auth_token', auth_token)]
-            
             response = stub.save(request=request, metadata=metadata)
             response = MessageToDict(response)
             
