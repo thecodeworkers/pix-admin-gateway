@@ -8,7 +8,6 @@ import grpc
 class CityQuery(ObjectType):
 	cities = List(City, auth_token=String(required=True))
 	city = Field(City, id=String(required=True), auth_token=String(required=True))
-	city_id = List(City)
 
 	def resolve_cities(root, info, auth_token):
 		try:

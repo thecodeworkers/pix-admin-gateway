@@ -8,7 +8,6 @@ import grpc
 class StateQuery(ObjectType):
 	states = List(State, auth_token=String(required=True))
 	state = Field(State, id=String(required=True), auth_token=String(required=True))
-	state_id = List(State)
 
 	def resolve_states(root, info, auth_token):
 		try:

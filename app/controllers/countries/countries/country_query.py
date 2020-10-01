@@ -8,7 +8,6 @@ import grpc
 class CountryQuery(ObjectType):
 	countries = List(Country, auth_token=String(required=True))
 	country = Field(Country, id=String(required=True), auth_token=String(required=True))
-	country_id = List(Country)
 
 	def resolve_countries(root, info, auth_token):
 		try:
