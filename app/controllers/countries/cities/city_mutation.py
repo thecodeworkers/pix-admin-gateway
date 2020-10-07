@@ -8,13 +8,16 @@ import grpc
 class CreateCity(Mutation):
 	class Arguments:
 		city_data = CityNotIdInput(required=True)
+		auth_token = String(required=True)
 
 	city = Field(City)
 
-	def mutate(self, info, city_data=None):
+	def mutate(self, info, city_data, auth_token):
 		try:
 			request = sender.CityNotIdRequest(**city_data)
-			response = stub.save(request)
+			metadata = [('auth_token', auth_token)]
+
+			response = stub.save(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
 			return CreateCity(**response)
@@ -25,13 +28,16 @@ class CreateCity(Mutation):
 class UpdateCity(Mutation):
 	class Arguments:
 		city_data = CityInput(required=True)
+		auth_token = String(required=True)
 	
 	city = Field(City)
 
-	def mutate(self, info, city_data=None):
+	def mutate(self, info, city_data, auth_token):
 		try:
 			request = sender.CityRequest(**city_data)
-			response = stub.update(request)
+			metadata = [('auth_token', auth_token)]
+
+			response = stub.update(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
 			return CreateCity(**response)
@@ -42,13 +48,16 @@ class UpdateCity(Mutation):
 class DeleteCity(Mutation):
 	class Arguments:
 		id = String(required=True)
+		auth_token = String(required=True)
 
 	ok = Boolean()
 
-	def mutate(self, info, id):
+	def mutate(self, info, id, auth_token):
 		try:
 			request = sender.CityIdRequest(id=id)
-			stub.delete(request)
+			metadata = [('auth_token', auth_token)]
+
+			stub.delete(request=request, metadata=metadata)
 
 			return DeleteCity(ok=True)
 

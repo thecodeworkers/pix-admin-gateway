@@ -6,20 +6,29 @@ from ..controllers import  *
 class AllQuerys(
     CurrencyQuery,
     LanguageQuery,
+    AmericanBankQuery,
+    EuropeanBankQuery,
+    LatinAmericanBankQuery,
+    CreditCardQuery,
+    RoleQuery,
     CountryQuery,
     StateQuery,
     CityQuery
-):
-    pass
+): pass
 
 class AllMutations(
     CurrencyMutation,
     LanguageMutation,
+    AmericanBankMutation,
+    EuropeanBankMutation,
+    LatinAmericanBankMutation,
+    CreditCardMutation,
+    AuthMutation,
+    RoleMutation,
     CountryMutation,
     StateMutation,
     CityMutation
-):
-    pass
+): pass
 
 
 schema = Schema(

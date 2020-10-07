@@ -8,13 +8,15 @@ import grpc
 class CreateLanguage(Mutation):
     class Arguments:
         language_data = LanguageNotIdInput(required=True)
+        auth_token=String(required=True)
 
     language = Field(Language)
 
-    def mutate(self, info, language_data=None):
+    def mutate(self, info, language_data, auth_token):
         try:
             request = sender.LanguageNotIdRequest(**language_data)
-            response = stub.save(request)
+            metadata = [('auth_token', auth_token)]
+            response = stub.save(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             return CreateLanguage(**response)
@@ -25,13 +27,15 @@ class CreateLanguage(Mutation):
 class UpdateLanguage(Mutation):
     class Arguments:
         language_data = LanguageInput(required=True)
+        auth_token=String(required=True)
 
     language = Field(Language)
 
-    def mutate(self, info, language_data=None):
+    def mutate(self, info, language_data, auth_token):
         try:
             request = sender.LanguageRequest(**language_data)
-            response = stub.update(request)
+            metadata = [('auth_token', auth_token)]
+            response = stub.update(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             return CreateLanguage(**response)
@@ -42,13 +46,16 @@ class UpdateLanguage(Mutation):
 class DeleteLanguage(Mutation):
     class Arguments:
         id = String(required=True)
+        auth_token=String(required=True)
 
     ok = Boolean()
 
-    def mutate(self, info, id):
+    def mutate(self, info, id, auth_token):
         try:
             request = sender.LanguageIdRequest(id=id)
-            stub.delete(request)
+            metadata = [('auth_token', auth_token)]
+            
+            stub.delete(request=request, metadata=metadata)
     
             return DeleteLanguage(ok=True)
 

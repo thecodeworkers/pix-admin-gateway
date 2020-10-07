@@ -5,12 +5,14 @@ from ....types import Language
 import grpc
 
 class LanguageQuery(ObjectType):
-    languages = List(Language)
+    languages = List(Language, auth_token=String(required=True))
+    language = Field(Language, id=String(required=True), auth_token=String(required=True))
 
-    def resolve_languages(root, info):
+    def resolve_languages(root, info, auth_token):
         try:
             request = sender.LanguageEmpty()
-            response = stub.get_all(request)
+            metadata = [('auth_token', auth_token)]
+            response = stub.get_all(request=request, metadata=metadata)
             response = MessageToDict(response)
             
             if 'language' in response:
@@ -20,3 +22,18 @@ class LanguageQuery(ObjectType):
         
         except grpc.RpcError as e:
             raise Exception(e.details())
+
+    def resolve_language(root, info, id, auth_token):
+        try:
+            request = sender.LanguageIdRequest(id=id)
+            metadata = [('auth_token', auth_token)]
+            response = stub.get(request=request, metadata=metadata)
+            response = MessageToDict(response)
+
+            if 'language' in response:
+                return response['language']
+        
+            return response
+        
+        except grpc.RpcError as e:
+            raise Exception(message_error(e))

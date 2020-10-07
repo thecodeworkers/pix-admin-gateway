@@ -6,14 +6,14 @@ from ....utils import message_error
 import grpc
 
 class CityQuery(ObjectType):
-	cities = List(City)
-	city = Field(City, id=String(required=True))
-	city_id = List(City)
+	cities = List(City, auth_token=String(required=True))
+	city = Field(City, id=String(required=True), auth_token=String(required=True))
 
-	def resolve_cities(root, info):
+	def resolve_cities(root, info, auth_token):
 		try:
 			request = sender.CityEmpty()
-			response = stub.get_all(request)
+			metadata = [('auth_token', auth_token)]
+			response = stub.get_all(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
 			if 'city' in response:
@@ -24,10 +24,11 @@ class CityQuery(ObjectType):
 		except grpc.RpcError as error:
 			raise Exception(message_error(error))
 
-	def resolve_city(root, info, id):
+	def resolve_city(root, info, id, auth_token):
 		try:
 			request = sender.CityIdRequest(id=id)
-			response = stub.get(request)
+			metadata = [('auth_token', auth_token)]
+			response = stub.get(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
 			if 'city' in response:
