@@ -2,7 +2,7 @@ from graphene import ObjectType, Field, List, Mutation, String, Boolean
 from google.protobuf.json_format import MessageToDict
 from .language_controller import sender, stub
 from ....types import Language, LanguageInput, LanguageNotIdInput
-from ....utils import message_error
+from ....utils import message_error, error_log, info_log
 import grpc
 
 class CreateLanguage(Mutation):
@@ -19,10 +19,16 @@ class CreateLanguage(Mutation):
             response = stub.save(request=request, metadata=metadata)
             response = MessageToDict(response)
             
+            info_log(info.context.remote_addr, "Create of Language", "resources_microservice", "CreateLanguage")
             return CreateLanguage(**response)
 
         except grpc.RpcError as e:
+            error_log(info.context.remote_addr, e.details(), "resources_microservice", type(e).__name__)
             raise Exception(message_error(e))
+        except Exception as e:
+            error_log(info.context.remote_addr, e.args[0], "resources_microservice", type(e).__name__)
+            raise Exception(e.args[0])
+
 
 class UpdateLanguage(Mutation):
     class Arguments:
@@ -38,10 +44,16 @@ class UpdateLanguage(Mutation):
             response = stub.update(request=request, metadata=metadata)
             response = MessageToDict(response)
             
-            return CreateLanguage(**response)
+            info_log(info.context.remote_addr, "Update of Language", "resources_microservice", "UpdateLanguage")
+            return UpdateLanguage(**response)
 
         except grpc.RpcError as e:
+            error_log(info.context.remote_addr, e.details(), "resources_microservice", type(e).__name__)
             raise Exception(message_error(e))
+        except Exception as e:
+            error_log(info.context.remote_addr, e.args[0], "resources_microservice", type(e).__name__)
+            raise Exception(e.args[0])
+
 
 class DeleteLanguage(Mutation):
     class Arguments:
@@ -57,6 +69,7 @@ class DeleteLanguage(Mutation):
             
             stub.delete(request=request, metadata=metadata)
     
+            info_log(info.context.remote_addr, "Delete of Language", "resources_microservice", "DeleteLanguage")
             return DeleteLanguage(ok=True)
 
         except grpc.RpcError as e:

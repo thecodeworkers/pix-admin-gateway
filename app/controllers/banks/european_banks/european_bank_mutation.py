@@ -2,7 +2,7 @@ from graphene import ObjectType, Field, List, Mutation, String, Boolean
 from google.protobuf.json_format import MessageToDict
 from .european_bank_controller import sender, stub
 from ....types import EuropeanBank, EuropeanBankInput, EuropeanBankNotIdInput
-from ....utils import message_error
+from ....utils import message_error, error_log, info_log
 import grpc
 
 class CreateEuropeanBank(Mutation):
@@ -19,11 +19,15 @@ class CreateEuropeanBank(Mutation):
             
             response = stub.save(request=request, metadata=metadata)
             response = MessageToDict(response)
-            
+            info_log(info.context.remote_addr, "Created european bank", "banks_microservice", "CreateEuropeanBank")
             return CreateEuropeanBank(**response)
 
         except grpc.RpcError as e:
+            error_log(info.context.remote_addr, e.details(), "banks_microservice", type(e).__name__)
             raise Exception(message_error(e))
+        except Exception as e:
+            error_log(info.context.remote_addr, e.args[0], "banks_microservice", type(e).__name__)
+            raise Exception(e.args[0])
 
 class UpdateEuropeanBank(Mutation):
     class Arguments:
@@ -39,11 +43,15 @@ class UpdateEuropeanBank(Mutation):
             
             response = stub.update(request=request, metadata=metadata)
             response = MessageToDict(response)
-            
+            info_log(info.context.remote_addr, "Updated european bank", "banks_microservice", "UpdateEuropeanBank")
             return UpdateEuropeanBank(**response)
 
         except grpc.RpcError as e:
+            error_log(info.context.remote_addr, e.details(), "banks_microservice", type(e).__name__)
             raise Exception(message_error(e))
+        except Exception as e:
+            error_log(info.context.remote_addr, e.args[0], "banks_microservice", type(e).__name__)
+            raise Exception(e.args[0])
 
 class DeleteEuropeanBank(Mutation):
     class Arguments:
@@ -58,11 +66,15 @@ class DeleteEuropeanBank(Mutation):
             metadata = [('auth_token', auth_token)]
             
             stub.delete(request=request, metadata=metadata)
-    
+            info_log(info.context.remote_addr, "Deleted european bank", "banks_microservice", "DeleteEuropeanBank")
             return DeleteEuropeanBank(ok=True)
 
         except grpc.RpcError as e:
+            error_log(info.context.remote_addr, e.details(), "banks_microservice", type(e).__name__)
             raise Exception(message_error(e))
+        except Exception as e:
+            error_log(info.context.remote_addr, e.args[0], "banks_microservice", type(e).__name__)
+            raise Exception(e.args[0])
 
 class EuropeanBankMutation(ObjectType):
     create_european_bank = CreateEuropeanBank.Field()
