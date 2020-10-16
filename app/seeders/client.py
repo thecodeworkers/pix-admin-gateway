@@ -2,6 +2,7 @@ import os
 from ..models import Client
 from ..utils import generate_app_keys
 from datetime import datetime
+from ..constants import APP_NAME
 
 
 def client_seeder(name):
@@ -15,6 +16,6 @@ def client_seeder(name):
 
     keys = generate_app_keys(name, int(datetime.timestamp(expire)))
 
-    Client(name=name, active=True, key_expiration=expire).save()
+    Client(name=name, active=True, key_expiration=expire, app_name=APP_NAME).save()
 
     print("Client created \n\n api key: {}".format(keys['api_key']))

@@ -8,13 +8,13 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.exceptions import InvalidSignature, InternalError
 from base64 import b64decode, b64encode
-from ..constants import APP_KEY
+from ..constants import APP_KEY, APP_NAME
 from bson.json_util import dumps
 from json import loads
 from ..models import Client
 from datetime import datetime
 
-def generation():
+def generation_keys():
 
     if not os.path.isfile(os.path.dirname(__file__) + '/../keys/private.pem'):
         __generate_keys()
@@ -36,6 +36,10 @@ def __generate_keys():
         encryption_algorithm=serialization.BestAvailableEncryption(
             b64decode(APP_KEY))
     )
+
+    if not os.path.isdir(os.path.dirname(__file__) + '/../keys'):
+        os.mkdir(os.path.dirname(__file__) + '/../keys', 0o750)
+        
 
     with open(os.path.dirname(__file__) + '/../keys/private.pem', 'wb') as f:
         f.write(encrypt_private_key)
@@ -59,7 +63,7 @@ def generate_app_keys(name, expiration_date):
             backend=default_backend()
         )
 
-    app_data = {"app_name": name, "exp": expiration_date}
+    app_data = {"app_name": APP_NAME, "client_name": name, "exp": expiration_date}
 
     public_app_key = public_key.encrypt(dumps(app_data).encode('utf-8'), padding.OAEP(
         mgf=padding.MGF1(algorithm=hashes.SHA256()),
@@ -97,7 +101,13 @@ def verify_signature(api_token):
 
     app_data = loads(public_data)
 
-    client = Client.objects.get(name=app_data['app_name'])
+    print(app_data)
+    print(APP_NAME)
+
+    if app_data['app_name'] != APP_NAME:
+        raise Exception("Api Key is Invalid")
+
+    client = Client.objects.get(name=app_data['client_name'])
 
     if not client:
         raise Exception("Client doesn't Exists")

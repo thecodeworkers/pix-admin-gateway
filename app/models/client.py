@@ -3,6 +3,7 @@ from datetime import datetime
 
 class Client(Document):
     name = StringField(required=True)
+    app_name = StringField(required=True)
     active = BooleanField(required=True)
     key_expiration = DateTimeField(required=True)
     creation_date = DateTimeField()
