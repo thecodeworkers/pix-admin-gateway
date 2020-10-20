@@ -45,20 +45,15 @@ def __add_cells(pdf, row, position_y, spacing, col_width, text_length, row_heigh
             sum_spacing = 0
 
             if spacing < 15:
-                sum_spacing = 0.5
-                if multi_spacing == 1:
-                    sum_spacing += 0.16  
-                    if spacing > 10:
-                        sum_spacing += 0.2
+                sum_spacing = 0.66 if multi_spacing == 1 else 0.5
+                sum_spacing = 0.86 if spacing > 10 and multi_spacing == 1 else sum_spacing
                 
-
             if spacing >= 15:
                 sum_spacing = 1
 
             multi_spacing += sum_spacing    
 
-            if spacing == 4:
-                multi_spacing = 2            
+            multi_spacing = 2 if spacing == 4 else multi_spacing     
 
             pdf.multi_cell(col_width, row_height * multi_spacing, txt=item, border=1)
             
