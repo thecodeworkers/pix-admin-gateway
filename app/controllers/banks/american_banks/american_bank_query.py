@@ -15,7 +15,7 @@ class AmericanBankQuery(ObjectType):
             metadata = [('auth_token', auth_token)]
             response = stub.get_all(request=request, metadata=metadata)
             response = MessageToDict(response)
-            info_log(info.context.remote_addr, "consult of american banks", "banks_microservice", "AmericanBankQuery")
+            info_log(info.context.remote_addr, "Consult of american banks", "banks_microservice", "AmericanBankQuery")
             if 'american' in response:
                 return response['american']
             
