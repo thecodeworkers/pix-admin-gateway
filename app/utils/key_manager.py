@@ -81,7 +81,11 @@ def generate_app_keys(name, expiration_date):
 
 def verify_signature(api_token):
 
+    if APP_KEY == "":
+        raise Exception("Set APP_KEY in .env file")
+
     try:
+
         with open(os.path.dirname(__file__) + '/../keys/private.pem', "rb") as key_file:
             private_key = serialization.load_pem_private_key(
                 key_file.read(),
