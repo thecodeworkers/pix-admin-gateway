@@ -2,7 +2,7 @@ from mongoengine import Document, StringField, BooleanField, DateTimeField
 from datetime import datetime
 
 class Client(Document):
-    name = StringField(required=True)
+    name = StringField(required=True, unique=True)
     app_name = StringField(required=True)
     active = BooleanField(required=True)
     key_expiration = DateTimeField(required=True)
