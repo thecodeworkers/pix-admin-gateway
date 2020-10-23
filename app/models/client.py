@@ -13,3 +13,7 @@ class Client(Document):
         if not self.creation_date:
             self.creation_date = datetime.now()
         return super(Client, self).save(*args, **kwargs)
+    
+    def update(self, **kwargs):
+        kwargs['modified_date'] = datetime.now()
+        return super(Client, self).update(**kwargs)
