@@ -13,6 +13,7 @@ from bson.json_util import dumps
 from json import loads
 from ..models import Client
 from datetime import datetime
+from flask import request
 
 def generation_keys():
 
@@ -22,6 +23,7 @@ def generation_keys():
 
 def __generate_keys():
     if APP_KEY == "":
+        error_log('local', 'APP_KEY DOESNT EXIST', APP_NAME, 'APP_KEY Exception')
         raise Exception("Set APP_KEY in .env file")
 
     private_key = rsa.generate_private_key(
@@ -99,22 +101,18 @@ def verify_signature(api_token):
             label=None
         ))
     except InvalidSignature as bad_signature:
-        raise Exception("Invalid Signature")
+        raise InvalidSignature("Invalid Signature")
     except Exception as invalid_key:
         raise Exception("Bad Decryption")
 
     app_data = loads(public_data)
 
-    print(app_data)
-    print(APP_NAME)
-
     if app_data['app_name'] != APP_NAME:
         raise Exception("Api Key is Invalid")
-
-    client = Client.objects.get(name=app_data['client_name'])
-
-    if not client:
-        raise Exception("Client doesn't Exists")
+    try:
+        client = Client.objects.get(name=app_data['client_name'])
+    except Client.DoesNotExist as no_exist:
+        raise Client.DoesNotExist("Client doesn't Exists")
 
     if not client.active:
         raise Exception("Client is inactive")
