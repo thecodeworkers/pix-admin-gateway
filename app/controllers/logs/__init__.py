@@ -1,1 +1,1 @@
-from .logs_controller import export_excel_log, export_pdf_log
+from .logs_controller import export_logs

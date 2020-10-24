@@ -2,7 +2,9 @@ import xlwt
 from io import BytesIO
 
 
-def excel_convertion(name, columns, data):
+def excel_convertion(name, full_data):
+    columns = full_data['columns']
+    data = full_data['data']
 
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet(name)
