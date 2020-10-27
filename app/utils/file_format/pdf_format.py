@@ -14,7 +14,7 @@ def pdf_convertion(name, data):
 
     for row in data:
         position_y = pdf.get_y()
-        if position_y >= 170:
+        if position_y >= 165:
             pdf.add_page(orientation="L")
             position_y = pdf.get_y()
     
@@ -44,21 +44,28 @@ def __add_cells(pdf, row, position_y, spacing, col_width, text_length, row_heigh
             multi_spacing = math.ceil(text_length / len(item))
             sum_spacing = 0
 
-            if spacing < 15:
+            if spacing < 14:
                 sum_spacing = 0.66 if multi_spacing == 1 else 0.5
                 sum_spacing = 0.86 if spacing > 10 and multi_spacing == 1 else sum_spacing
                 
-            if spacing >= 15:
+            if spacing < 7:
+                sum_spacing = 0 if multi_spacing != 1 else 1
+
+            if spacing >= 14:
                 sum_spacing = 1
+            
+            if spacing >= 20:
+                sum_spacing = 1.5 if multi_spacing != 1 else 1.07
 
             multi_spacing += sum_spacing    
 
-            multi_spacing = 2 if spacing == 4 else multi_spacing     
+            multi_spacing = 2 if spacing == 4 else multi_spacing
 
             pdf.multi_cell(col_width, row_height * multi_spacing, txt=item, border=1)
             
             pdf.set_y(position_y)
             pdf.set_x(position_x + col_width)
+
             continue
         
         pdf.cell(col_width, row_height * spacing, txt=item, border=1)
