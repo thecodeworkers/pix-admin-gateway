@@ -73,7 +73,11 @@ class DeleteLanguage(Mutation):
             return DeleteLanguage(ok=True)
 
         except grpc.RpcError as e:
+            error_log(info.context.remote_addr, e.details(), "banks_microservice", type(e).__name__)
             raise Exception(message_error(e))
+        except Exception as e:
+            error_log(info.context.remote_addr, e.args[0], "banks_microservice", type(e).__name__)
+            raise Exception(e.args[0])
 
 class LanguageMutation(ObjectType):
     create_language = CreateLanguage.Field()

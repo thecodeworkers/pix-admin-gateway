@@ -11,6 +11,10 @@ def welcome():
 def page_not_found(error):
     return { 'result': 'not_found' }, 404
 
+@app.errorhandler(Exception)
+def exception_occur(error):
+    return { 'result': error.args[0]}, 500
+
 graphql_routes()
 rest_routes()
 
