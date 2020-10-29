@@ -1,1 +1,1 @@
-from .client import client_seeder
+from .client import client_seeder, regenerate_client_key

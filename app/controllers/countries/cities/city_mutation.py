@@ -2,7 +2,7 @@ from graphene import Mutation, ObjectType, Field, String, Boolean
 from ....types import City, CityInput, CityNotIdInput
 from .city_controller import sender, stub
 from google.protobuf.json_format import MessageToDict
-from ....utils import message_error
+from ....utils import message_error, error_log, info_log
 import grpc
 
 class CreateCity(Mutation):
@@ -19,11 +19,15 @@ class CreateCity(Mutation):
 
 			response = stub.save(request=request, metadata=metadata)
 			response = MessageToDict(response)
-
+			info_log(info.context.remote_addr, "Create of City", "countries_microservice", "CreateCity")
 			return CreateCity(**response)
 
 		except grpc.RpcError as e:
+			error_log(info.context.remote_addr, e.details(), "countries_microservice", type(e).__name__)
 			raise Exception(message_error(e))
+		except Exception as e:
+			error_log(info.context.remote_addr, e.args[0], "countries_microservice", type(e).__name__)
+			raise Exception(e.args[0])
 
 class UpdateCity(Mutation):
 	class Arguments:
@@ -39,11 +43,15 @@ class UpdateCity(Mutation):
 
 			response = stub.update(request=request, metadata=metadata)
 			response = MessageToDict(response)
-
+			info_log(info.context.remote_addr, "Update of City", "countries_microservice", "UpdateCity")
 			return CreateCity(**response)
 
 		except grpc.RpcError as e:
+			error_log(info.context.remote_addr, e.details(), "countries_microservice", type(e).__name__)
 			raise Exception(message_error(e))
+		except Exception as e:
+			error_log(info.context.remote_addr, e.args[0], "countries_microservice", type(e).__name__)
+			raise Exception(e.args[0])
 
 class DeleteCity(Mutation):
 	class Arguments:
@@ -58,11 +66,15 @@ class DeleteCity(Mutation):
 			metadata = [('auth_token', auth_token)]
 
 			stub.delete(request=request, metadata=metadata)
-
+			info_log(info.context.remote_addr, "Delete of City", "countries_microservice", "DeleteCity")
 			return DeleteCity(ok=True)
 
 		except grpc.RpcError as e:
+			error_log(info.context.remote_addr, e.details(), "countries_microservice", type(e).__name__)
 			raise Exception(message_error(e))
+		except Exception as e:
+			error_log(info.context.remote_addr, e.args[0], "countries_microservice", type(e).__name__)
+			raise Exception(e.args[0])
 
 class CityMutation(ObjectType):
 	create_city = CreateCity.Field()
