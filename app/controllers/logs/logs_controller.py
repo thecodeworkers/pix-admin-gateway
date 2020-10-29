@@ -2,8 +2,9 @@ from ...models import Logs
 from flask import request
 from ...utils import download_file, error_log
 from ...constants import APP_NAME
+from ...middleware import rest_auth_middleware
 
-
+@rest_auth_middleware
 def export_logs():
     try:
         type_export = request.args.get('file')
