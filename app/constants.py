@@ -24,6 +24,7 @@ RESOURCES_HOST = os.getenv('RESOURCES_HOST', 'localhost:50051')
 AUTHENTICATION_HOST = os.getenv('AUTHENTICATION_HOST', 'localhost:50050')
 BANKS_HOST = os.getenv('BANKS_HOST', 'localhost:50054')
 COUNTRIES_HOST = os.getenv('COUNTRIES_HOST', 'localhost:50053')
+PIX_SETTINGS_HOST = os.getenv('PIX_SETTINGS_HOST', 'localhost:50055')
 
 APP_NAME = os.getenv('APP_NAME', "ADMIN_GATEWAY")
 APP_KEY = os.getenv('APP_KEY', "")

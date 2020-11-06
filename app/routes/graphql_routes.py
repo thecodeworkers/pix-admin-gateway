@@ -14,7 +14,10 @@ class AllQuerys(
     RoleQuery,
     CountryQuery,
     StateQuery,
-    CityQuery
+    CityQuery,
+    BusinessSettingQuery,
+    GeneralSettingQuery,
+    SessionQuery
 ): pass
 
 class AllMutations(
@@ -28,7 +31,10 @@ class AllMutations(
     RoleMutation,
     CountryMutation,
     StateMutation,
-    CityMutation
+    CityMutation,
+    BusinessSettingMutation,
+    GeneralSettingMutation,
+    SessionMutation
 ): pass
 
 

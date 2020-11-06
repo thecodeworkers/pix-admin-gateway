@@ -1,4 +1,4 @@
-from ..protos import currency_pb2, currency_pb2_grpc, language_pb2, language_pb2_grpc, american_banks_pb2, american_banks_pb2_grpc, latinamerican_banks_pb2, latinamerican_banks_pb2_grpc, european_banks_pb2, european_banks_pb2_grpc, credit_cards_pb2_grpc, credit_cards_pb2, auth_pb2, auth_pb2_grpc, role_pb2, role_pb2_grpc, country_pb2_grpc, country_pb2, state_pb2, state_pb2_grpc, city_pb2, city_pb2_grpc
+from ..protos import currency_pb2, currency_pb2_grpc, language_pb2, language_pb2_grpc, american_banks_pb2, american_banks_pb2_grpc, latinamerican_banks_pb2, latinamerican_banks_pb2_grpc, european_banks_pb2, european_banks_pb2_grpc, credit_cards_pb2_grpc, credit_cards_pb2, auth_pb2, auth_pb2_grpc, role_pb2, role_pb2_grpc, country_pb2_grpc, country_pb2, state_pb2, state_pb2_grpc, city_pb2, city_pb2_grpc, general_setting_pb2, general_setting_pb2_grpc, business_setting_pb2, business_setting_pb2_grpc, session_pb2, session_pb2_grpc
 from ..bootstrap import init_server
 from ..constants import *
 
@@ -60,6 +60,22 @@ microservices = {
             'cities': {
                 'stub': city_pb2_grpc.CityStub(init_server(COUNTRIES_HOST)),
                 'sender': city_pb2
+            }
+        }
+    },
+    'pix_settings': {
+        'services': {
+            'general_settings': {
+                'stub': general_setting_pb2_grpc.GeneralSettingStub(init_server(PIX_SETTINGS_HOST)),
+                'sender': general_setting_pb2
+            },
+            'business_settings': {
+                'stub': business_setting_pb2_grpc.BusinessSettingStub(init_server(PIX_SETTINGS_HOST)),
+                'sender': business_setting_pb2
+            },
+            'sessions': {
+                'stub': session_pb2_grpc.SessionStub(init_server(PIX_SETTINGS_HOST)),
+                'sender': session_pb2
             }
         }
     }
