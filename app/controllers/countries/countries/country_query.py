@@ -3,14 +3,17 @@ from google.protobuf.json_format import MessageToDict
 from .country_controller import sender, stub
 from ....types import Country
 from ....utils import message_error, error_log, info_log
+from ....middleware import session_middleware
 import grpc
 
 class CountryQuery(ObjectType):
-	countries = List(Country, auth_token=String(required=True))
-	country = Field(Country, id=String(required=True), auth_token=String(required=True))
+	countries = List(Country)
+	country = Field(Country, id=String(required=True))
 
-	def resolve_countries(root, info, auth_token):
+	@session_middleware
+	def resolve_countries(root, info):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.CountryEmpty()
 			metadata = [('auth_token', auth_token)]
 			response = stub.get_all(request=request, metadata=metadata)
@@ -35,9 +38,11 @@ class CountryQuery(ObjectType):
 		except Exception as e:
 			error_log(info.context.remote_addr, e.args[0], "countries_microservice", type(e).__name__)
 			raise Exception(e.args[0])
-
-	def resolve_country(root, info, id, auth_token):
+	
+	@session_middleware
+	def resolve_country(root, info, id):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.CountryIdRequest(id=id)
 			metadata = [('auth_token', auth_token)]
 			response = stub.get(request=request, metadata=metadata)

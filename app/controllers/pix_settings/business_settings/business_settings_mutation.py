@@ -3,17 +3,19 @@ from ....types import BusinessSetting, BusinessSettingInput, BusinessSettingNotI
 from .business_settings_controller import sender, stub
 from google.protobuf.json_format import MessageToDict
 from ....utils import message_error, error_log, info_log
+from ....middleware import session_middleware
 import grpc
 
 class CreateBusinessSetting(Mutation):
 	class Arguments:
 		business_data = BusinessSettingNotIdInput(required=True)
-		auth_token = String(required=True)
 
 	business = Field(BusinessSetting)
 
-	def mutate(self, info, business_data, auth_token):
+	@session_middleware
+	def mutate(self, info, business_data):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.BusinessSettingNotIdRequest(**business_data)
 			metadata = [('auth_token', auth_token)]
 
@@ -36,12 +38,13 @@ class CreateBusinessSetting(Mutation):
 class UpdateBusinessSetting(Mutation):
 	class Arguments:
 		business_data = BusinessSettingInput(required=True)
-		auth_token = String(required=True)
 	
 	business = Field(BusinessSetting)
 
-	def mutate(self, info, business_data, auth_token):
+	@session_middleware
+	def mutate(self, info, business_data):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.BusinessSettingRequest(**business_data)
 			metadata = [('auth_token', auth_token)]
 
@@ -60,12 +63,13 @@ class UpdateBusinessSetting(Mutation):
 class DeleteBusinessSetting(Mutation):
 	class Arguments:
 		id = String(required=True)
-		auth_token = String(required=True)
 
 	ok = Boolean()
 
-	def mutate(self, info, id, auth_token):
+	@session_middleware
+	def mutate(self, info, id):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.BusinessSettingIdRequest(id=id)
 			metadata = [('auth_token', auth_token)]
 

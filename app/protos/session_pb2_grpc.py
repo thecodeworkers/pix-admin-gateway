@@ -26,7 +26,7 @@ class SessionStub(object):
                 )
         self.get = channel.unary_unary(
                 '/Session/get',
-                request_serializer=session__pb2.SessionIdRequest.SerializeToString,
+                request_serializer=session__pb2.SessionOneRequest.SerializeToString,
                 response_deserializer=session__pb2.SessionResponse.FromString,
                 )
         self.save = channel.unary_unary(
@@ -100,7 +100,7 @@ def add_SessionServicer_to_server(servicer, server):
             ),
             'get': grpc.unary_unary_rpc_method_handler(
                     servicer.get,
-                    request_deserializer=session__pb2.SessionIdRequest.FromString,
+                    request_deserializer=session__pb2.SessionOneRequest.FromString,
                     response_serializer=session__pb2.SessionResponse.SerializeToString,
             ),
             'save': grpc.unary_unary_rpc_method_handler(
@@ -171,7 +171,7 @@ class Session(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Session/get',
-            session__pb2.SessionIdRequest.SerializeToString,
+            session__pb2.SessionOneRequest.SerializeToString,
             session__pb2.SessionResponse.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -3,18 +3,19 @@ from google.protobuf.json_format import MessageToDict
 from .american_bank_controller import sender, stub
 from ....types import AmericanBank, AmericanBankInput, AmericanBankNotIdInput
 from ....utils import message_error, info_log, error_log
+from ....middleware import session_middleware
 import grpc
 import sys
 
 class CreateAmericanBank(Mutation):
     class Arguments:
         american_bank_data = AmericanBankNotIdInput(required=True)
-        auth_token = String(required=True)
 
     american = Field(AmericanBank)
-
-    def mutate(self, info, american_bank_data, auth_token):
+    @session_middleware
+    def mutate(self, info, american_bank_data):
         try:
+            auth_token = info.context.headers.get('Authorization')
             request = sender.AmericanBankNotIdRequest(**american_bank_data)
             metadata = [('auth_token', auth_token)]
             response = stub.save(request=request, metadata=metadata)
@@ -33,12 +34,12 @@ class CreateAmericanBank(Mutation):
 class UpdateAmericanBank(Mutation):
     class Arguments:
         american_bank_data = AmericanBankInput(required=True)
-        auth_token = String(required=True)
 
     american = Field(AmericanBank)
-
-    def mutate(self, info, american_bank_data, auth_token):
+    @session_middleware
+    def mutate(self, info, american_bank_data):
         try:
+            auth_token = info.context.headers.get('Authorization')
             request = sender.AmericanBankRequest(**american_bank_data)
             metadata = [('auth_token', auth_token)]
             
@@ -57,12 +58,12 @@ class UpdateAmericanBank(Mutation):
 class DeleteAmericanBank(Mutation):
     class Arguments:
         id = String(required=True)
-        auth_token = String(required=True)
 
     ok = Boolean()
-
-    def mutate(self, info, id, auth_token):
+    @session_middleware
+    def mutate(self, info, id):
         try:
+            auth_token = info.context.headers.get('Authorization')
             request = sender.AmericanBankIdRequest(id=id)
             metadata = [('auth_token', auth_token)]
             

@@ -3,17 +3,19 @@ from google.protobuf.json_format import MessageToDict
 from .language_controller import sender, stub
 from ....types import Language, LanguageInput, LanguageNotIdInput
 from ....utils import message_error, error_log, info_log
+from ....middleware import session_middleware
 import grpc
 
 class CreateLanguage(Mutation):
     class Arguments:
         language_data = LanguageNotIdInput(required=True)
-        auth_token=String(required=True)
 
     language = Field(Language)
 
-    def mutate(self, info, language_data, auth_token):
+    @session_middleware
+    def mutate(self, info, language_data):
         try:
+            auth_token = info.context.headers.get('Authorization')
             request = sender.LanguageNotIdRequest(**language_data)
             metadata = [('auth_token', auth_token)]
             response = stub.save(request=request, metadata=metadata)
@@ -33,12 +35,13 @@ class CreateLanguage(Mutation):
 class UpdateLanguage(Mutation):
     class Arguments:
         language_data = LanguageInput(required=True)
-        auth_token=String(required=True)
 
     language = Field(Language)
 
-    def mutate(self, info, language_data, auth_token):
+    @session_middleware
+    def mutate(self, info, language_data):
         try:
+            auth_token = info.context.headers.get('Authorization')
             request = sender.LanguageRequest(**language_data)
             metadata = [('auth_token', auth_token)]
             response = stub.update(request=request, metadata=metadata)
@@ -58,12 +61,13 @@ class UpdateLanguage(Mutation):
 class DeleteLanguage(Mutation):
     class Arguments:
         id = String(required=True)
-        auth_token=String(required=True)
 
     ok = Boolean()
 
-    def mutate(self, info, id, auth_token):
+    @session_middleware
+    def mutate(self, info, id):
         try:
+            auth_token = info.context.headers.get('Authorization')
             request = sender.LanguageIdRequest(id=id)
             metadata = [('auth_token', auth_token)]
             

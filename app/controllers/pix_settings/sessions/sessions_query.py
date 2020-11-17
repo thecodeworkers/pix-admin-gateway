@@ -3,14 +3,17 @@ from google.protobuf.json_format import MessageToDict
 from .sessions_controller import sender, stub
 from ....types import Session
 from ....utils import message_error, error_log, info_log
+from ....middleware import session_middleware
 import grpc
 
 class SessionQuery(ObjectType):
-	sessions = List(Session, auth_token=String(required=True))
-	session = Field(Session, id=String(required=True), auth_token=String(required=True))
+	sessions = List(Session)
+	session = Field(Session, user_agent=String(required=True), ip=String(required=True))
 
-	def resolve_sessions(root, info, auth_token):
+	@session_middleware
+	def resolve_sessions(root, info):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.SessionEmpty()
 			metadata = [('auth_token', auth_token)]
 			response = stub.get_all(request=request, metadata=metadata)
@@ -28,9 +31,11 @@ class SessionQuery(ObjectType):
 			error_log(info.context.remote_addr, e.args[0], "pix_settings_microservice", type(e).__name__)
 			raise Exception(e.args[0])
 
-	def resolve_session(root, info, id, auth_token):
+	@session_middleware
+	def resolve_session(root, info, user_agent, ip):
 		try:
-			request = sender.SessionIdRequest(id=id)
+			auth_token = info.context.headers.get('Authorization')
+			request = sender.SessionOneRequest(userAgent=user_agent, ip=ip)
 			metadata = [('auth_token', auth_token)]
 			response = stub.get(request=request, metadata=metadata)
 			response = MessageToDict(response)

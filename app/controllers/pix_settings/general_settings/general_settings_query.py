@@ -3,14 +3,17 @@ from google.protobuf.json_format import MessageToDict
 from .general_settings_controller import sender, stub
 from ....types import GeneralSetting
 from ....utils import message_error, error_log, info_log
+from ....middleware import session_middleware
 import grpc
 
 class GeneralSettingQuery(ObjectType):
-	general_settings = List(GeneralSetting, auth_token=String(required=True))
-	general = Field(GeneralSetting, id=String(required=True), auth_token=String(required=True))
+	general_settings = List(GeneralSetting)
+	general = Field(GeneralSetting, id=String(required=True))
 
-	def resolve_general_settings(root, info, auth_token):
+	@session_middleware
+	def resolve_general_settings(root, info):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.GeneralSettingEmpty()
 			metadata = [('auth_token', auth_token)]
 			response = stub.get_all(request=request, metadata=metadata)
@@ -28,8 +31,10 @@ class GeneralSettingQuery(ObjectType):
 			error_log(info.context.remote_addr, e.args[0], "pix_settings_microservice", type(e).__name__)
 			raise Exception(e.args[0])
 
-	def resolve_general(root, info, id, auth_token):
+	@session_middleware
+	def resolve_general(root, info, id):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.GeneralSettingIdRequest(id=id)
 			metadata = [('auth_token', auth_token)]
 			response = stub.get(request=request, metadata=metadata)

@@ -8,12 +8,13 @@ import grpc
 class CreateRole(Mutation):
     class Arguments:
         role_data = RoleNotIdInput(required=True)
-        auth_token = String(required=True)
 
     role = Field(Role)
 
-    def mutate(self, info, role_data, auth_token):
+    def mutate(self, info, role_data):
         try:
+            auth_token = info.context.headers.get('Authorization')
+
             request = sender.RoleNotIdRequest(**role_data)
             metadata = [('auth_token', auth_token)]
             
@@ -33,12 +34,12 @@ class CreateRole(Mutation):
 class UpdateRole(Mutation):
     class Arguments:
         role_data = RoleInput(required=True)
-        auth_token = String(required=True)
 
     role = Field(Role)
 
-    def mutate(self, info, role_data, auth_token):
+    def mutate(self, info, role_data):
         try:
+            auth_token = info.context.headers.get('Authorization')
             request = sender.RoleRequest(**role_data)
             metadata = [('auth_token', auth_token)]
             
@@ -58,12 +59,12 @@ class UpdateRole(Mutation):
 class DeleteRole(Mutation):
     class Arguments:
         id = String(required=True)
-        auth_token = String(required=True)
 
     ok = Boolean()
 
-    def mutate(self, info, id, auth_token):
+    def mutate(self, info, id):
         try:
+            auth_token = info.context.headers.get('Authorization')
             request = sender.RoleIdRequest(id=id)
             metadata = [('auth_token', auth_token)]
             

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto2',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\rsession.proto\"\x0e\n\x0cSessionEmpty\"\x1e\n\x10SessionIdRequest\x12\n\n\x02id\x18\x01 \x02(\t\"\x80\x01\n\x13SessionNotIdRequest\x12\x0c\n\x04user\x18\x01 \x02(\t\x12\x0b\n\x03\x61pp\x18\x02 \x02(\t\x12\n\n\x02ip\x18\x03 \x02(\t\x12\x10\n\x08location\x18\x04 \x02(\t\x12\x11\n\tuserAgent\x18\x05 \x02(\t\x12\r\n\x05valid\x18\x06 \x02(\x08\x12\x0e\n\x06\x61\x63tive\x18\x07 \x02(\x08\"\x87\x01\n\x0eSessionRequest\x12\n\n\x02id\x18\x01 \x02(\t\x12\x0c\n\x04user\x18\x02 \x02(\t\x12\x0b\n\x03\x61pp\x18\x03 \x02(\t\x12\n\n\x02ip\x18\x04 \x02(\t\x12\x10\n\x08location\x18\x05 \x02(\t\x12\x11\n\tuserAgent\x18\x06 \x02(\t\x12\r\n\x05valid\x18\x07 \x02(\x08\x12\x0e\n\x06\x61\x63tive\x18\x08 \x02(\x08\"I\n\x13SessionTableRequest\x12\x0c\n\x04page\x18\x01 \x02(\x05\x12\x14\n\x08per_page\x18\x02 \x01(\x05:\x02\x31\x35\x12\x0e\n\x06search\x18\x03 \x01(\t\"3\n\x0fSessionResponse\x12 \n\x07session\x18\x01 \x02(\x0b\x32\x0f.SessionRequest\";\n\x17SessionMultipleResponse\x12 \n\x07session\x18\x01 \x03(\x0b\x32\x0f.SessionRequest\"~\n\x14SessionTableResponse\x12\x1e\n\x05items\x18\x01 \x03(\x0b\x32\x0f.SessionRequest\x12\x0c\n\x04page\x18\x02 \x02(\x05\x12\x10\n\x08per_page\x18\x03 \x02(\x05\x12\x13\n\x0btotal_items\x18\x04 \x02(\x05\x12\x11\n\tnum_pages\x18\x05 \x02(\x05\x32\xa8\x02\n\x07Session\x12\x34\n\x05table\x12\x14.SessionTableRequest\x1a\x15.SessionTableResponse\x12\x32\n\x07get_all\x12\r.SessionEmpty\x1a\x18.SessionMultipleResponse\x12*\n\x03get\x12\x11.SessionIdRequest\x1a\x10.SessionResponse\x12.\n\x04save\x12\x14.SessionNotIdRequest\x1a\x10.SessionResponse\x12+\n\x06update\x12\x0f.SessionRequest\x1a\x10.SessionResponse\x12*\n\x06\x64\x65lete\x12\x11.SessionIdRequest\x1a\r.SessionEmpty'
+  serialized_pb=b'\n\rsession.proto\"\x0e\n\x0cSessionEmpty\"\x1e\n\x10SessionIdRequest\x12\n\n\x02id\x18\x01 \x02(\t\"2\n\x11SessionOneRequest\x12\x11\n\tuserAgent\x18\x01 \x02(\t\x12\n\n\x02ip\x18\x02 \x02(\t\"\x80\x01\n\x13SessionNotIdRequest\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\x0b\n\x03\x61pp\x18\x02 \x02(\t\x12\n\n\x02ip\x18\x03 \x02(\t\x12\x10\n\x08location\x18\x04 \x02(\t\x12\x11\n\tuserAgent\x18\x05 \x02(\t\x12\r\n\x05valid\x18\x06 \x02(\x08\x12\x0e\n\x06\x61\x63tive\x18\x07 \x02(\x08\"\x87\x01\n\x0eSessionRequest\x12\n\n\x02id\x18\x01 \x02(\t\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x0b\n\x03\x61pp\x18\x03 \x02(\t\x12\n\n\x02ip\x18\x04 \x02(\t\x12\x10\n\x08location\x18\x05 \x02(\t\x12\x11\n\tuserAgent\x18\x06 \x02(\t\x12\r\n\x05valid\x18\x07 \x02(\x08\x12\x0e\n\x06\x61\x63tive\x18\x08 \x02(\x08\"I\n\x13SessionTableRequest\x12\x0c\n\x04page\x18\x01 \x02(\x05\x12\x14\n\x08per_page\x18\x02 \x01(\x05:\x02\x31\x35\x12\x0e\n\x06search\x18\x03 \x01(\t\"3\n\x0fSessionResponse\x12 \n\x07session\x18\x01 \x02(\x0b\x32\x0f.SessionRequest\";\n\x17SessionMultipleResponse\x12 \n\x07session\x18\x01 \x03(\x0b\x32\x0f.SessionRequest\"~\n\x14SessionTableResponse\x12\x1e\n\x05items\x18\x01 \x03(\x0b\x32\x0f.SessionRequest\x12\x0c\n\x04page\x18\x02 \x02(\x05\x12\x10\n\x08per_page\x18\x03 \x02(\x05\x12\x13\n\x0btotal_items\x18\x04 \x02(\x05\x12\x11\n\tnum_pages\x18\x05 \x02(\x05\x32\xa9\x02\n\x07Session\x12\x34\n\x05table\x12\x14.SessionTableRequest\x1a\x15.SessionTableResponse\x12\x32\n\x07get_all\x12\r.SessionEmpty\x1a\x18.SessionMultipleResponse\x12+\n\x03get\x12\x12.SessionOneRequest\x1a\x10.SessionResponse\x12.\n\x04save\x12\x14.SessionNotIdRequest\x1a\x10.SessionResponse\x12+\n\x06update\x12\x0f.SessionRequest\x1a\x10.SessionResponse\x12*\n\x06\x64\x65lete\x12\x11.SessionIdRequest\x1a\r.SessionEmpty'
 )
 
 
@@ -82,6 +82,45 @@ _SESSIONIDREQUEST = _descriptor.Descriptor(
 )
 
 
+_SESSIONONEREQUEST = _descriptor.Descriptor(
+  name='SessionOneRequest',
+  full_name='SessionOneRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='userAgent', full_name='SessionOneRequest.userAgent', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ip', full_name='SessionOneRequest.ip', index=1,
+      number=2, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=65,
+  serialized_end=115,
+)
+
+
 _SESSIONNOTIDREQUEST = _descriptor.Descriptor(
   name='SessionNotIdRequest',
   full_name='SessionNotIdRequest',
@@ -92,7 +131,7 @@ _SESSIONNOTIDREQUEST = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='user', full_name='SessionNotIdRequest.user', index=0,
-      number=1, type=9, cpp_type=9, label=2,
+      number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -151,8 +190,8 @@ _SESSIONNOTIDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=66,
-  serialized_end=194,
+  serialized_start=118,
+  serialized_end=246,
 )
 
 
@@ -173,7 +212,7 @@ _SESSIONREQUEST = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='user', full_name='SessionRequest.user', index=1,
-      number=2, type=9, cpp_type=9, label=2,
+      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -232,8 +271,8 @@ _SESSIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=197,
-  serialized_end=332,
+  serialized_start=249,
+  serialized_end=384,
 )
 
 
@@ -278,8 +317,8 @@ _SESSIONTABLEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=334,
-  serialized_end=407,
+  serialized_start=386,
+  serialized_end=459,
 )
 
 
@@ -310,8 +349,8 @@ _SESSIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=409,
-  serialized_end=460,
+  serialized_start=461,
+  serialized_end=512,
 )
 
 
@@ -342,8 +381,8 @@ _SESSIONMULTIPLERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=462,
-  serialized_end=521,
+  serialized_start=514,
+  serialized_end=573,
 )
 
 
@@ -402,8 +441,8 @@ _SESSIONTABLERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=523,
-  serialized_end=649,
+  serialized_start=575,
+  serialized_end=701,
 )
 
 _SESSIONRESPONSE.fields_by_name['session'].message_type = _SESSIONREQUEST
@@ -411,6 +450,7 @@ _SESSIONMULTIPLERESPONSE.fields_by_name['session'].message_type = _SESSIONREQUES
 _SESSIONTABLERESPONSE.fields_by_name['items'].message_type = _SESSIONREQUEST
 DESCRIPTOR.message_types_by_name['SessionEmpty'] = _SESSIONEMPTY
 DESCRIPTOR.message_types_by_name['SessionIdRequest'] = _SESSIONIDREQUEST
+DESCRIPTOR.message_types_by_name['SessionOneRequest'] = _SESSIONONEREQUEST
 DESCRIPTOR.message_types_by_name['SessionNotIdRequest'] = _SESSIONNOTIDREQUEST
 DESCRIPTOR.message_types_by_name['SessionRequest'] = _SESSIONREQUEST
 DESCRIPTOR.message_types_by_name['SessionTableRequest'] = _SESSIONTABLEREQUEST
@@ -432,6 +472,13 @@ SessionIdRequest = _reflection.GeneratedProtocolMessageType('SessionIdRequest', 
   # @@protoc_insertion_point(class_scope:SessionIdRequest)
   })
 _sym_db.RegisterMessage(SessionIdRequest)
+
+SessionOneRequest = _reflection.GeneratedProtocolMessageType('SessionOneRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SESSIONONEREQUEST,
+  '__module__' : 'session_pb2'
+  # @@protoc_insertion_point(class_scope:SessionOneRequest)
+  })
+_sym_db.RegisterMessage(SessionOneRequest)
 
 SessionNotIdRequest = _reflection.GeneratedProtocolMessageType('SessionNotIdRequest', (_message.Message,), {
   'DESCRIPTOR' : _SESSIONNOTIDREQUEST,
@@ -484,8 +531,8 @@ _SESSION = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=652,
-  serialized_end=948,
+  serialized_start=704,
+  serialized_end=1001,
   methods=[
   _descriptor.MethodDescriptor(
     name='table',
@@ -512,7 +559,7 @@ _SESSION = _descriptor.ServiceDescriptor(
     full_name='Session.get',
     index=2,
     containing_service=None,
-    input_type=_SESSIONIDREQUEST,
+    input_type=_SESSIONONEREQUEST,
     output_type=_SESSIONRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,

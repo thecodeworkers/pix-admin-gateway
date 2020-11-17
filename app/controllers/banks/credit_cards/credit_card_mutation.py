@@ -3,17 +3,19 @@ from google.protobuf.json_format import MessageToDict
 from .credit_card_controller import sender, stub
 from ....types import CreditCard, CreditCardNotIdInput, CreditCardInput
 from ....utils import message_error, info_log, error_log
+from ....middleware import session_middleware
 import grpc
 
 class CreateCreditCard(Mutation):
     class Arguments:
         credit_card_data = CreditCardNotIdInput(required=True)
-        auth_token = String(required=True)
 
     credit = Field(CreditCard)
 
-    def mutate(self, info, credit_card_data, auth_token):
+    @session_middleware
+    def mutate(self, info, credit_card_data):
         try:
+            auth_token = info.context.headers.get('Authorization')
             request = sender.CreditCardNotIdRequest(**credit_card_data)
             metadata = [('auth_token', auth_token)]
             
@@ -32,12 +34,13 @@ class CreateCreditCard(Mutation):
 class UpdateCreditCard(Mutation):
     class Arguments:
         credit_card_data = CreditCardInput(required=True)
-        auth_token = String(required=True)
 
     credit = Field(CreditCard)
-
-    def mutate(self, info, credit_card_data, auth_token):
+    
+    @session_middleware
+    def mutate(self, info, credit_card_data):
         try:
+            auth_token = info.context.headers.get('Authorization')
             request = sender.CreditCardRequest(**credit_card_data)
             metadata = [('auth_token', auth_token)]
             
@@ -56,12 +59,13 @@ class UpdateCreditCard(Mutation):
 class DeleteCreditCard(Mutation):
     class Arguments:
         id = String(required=True)
-        auth_token = String(required=True)
 
     ok = Boolean()
 
-    def mutate(self, info, id, auth_token):
+    @session_middleware
+    def mutate(self, info, id):
         try:
+            auth_token = info.context.headers.get('Authorization')
             request = sender.CreditCardIdRequest(id=id)
             metadata = [('auth_token', auth_token)]
             

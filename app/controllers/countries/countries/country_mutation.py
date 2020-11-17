@@ -3,17 +3,19 @@ from ....types import Country, CountryInput, CountryNotIdInput
 from .country_controller import sender, stub
 from google.protobuf.json_format import MessageToDict
 from ....utils import message_error, error_log, info_log
+from ....middleware import session_middleware
 import grpc
 
 class CreateCountry(Mutation):
 	class Arguments:
 		country_data = CountryNotIdInput(required=True)
-		auth_token = String(required=True)
 	
 	country = Field(Country)
 
-	def mutate(self, info, country_data, auth_token):
+	@session_middleware
+	def mutate(self, info, country_data):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.CountryNotIdRequest(**country_data)
 			metadata = [('auth_token', auth_token)]
 
@@ -32,12 +34,13 @@ class CreateCountry(Mutation):
 class UpdateCountry(Mutation):
 	class Arguments:
 		country_data = CountryInput(required=True)
-		auth_token = String(required=True)
 
 	country = Field(Country)
 
-	def mutate(self, info, country_data, auth_token):
+	@session_middleware
+	def mutate(self, info, country_data):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.CountryRequest(**country_data)
 			metadata = [('auth_token', auth_token)]
 
@@ -57,12 +60,13 @@ class UpdateCountry(Mutation):
 class DeleteCountry(Mutation):
 	class Arguments:
 		id = String(required=True)
-		auth_token = String(required=True)
 
 	ok = Boolean()
 
-	def mutate(self, info, id, auth_token):
+	@session_middleware
+	def mutate(self, info, id):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.CountryIdRequest(id=id)
 			metadata = [('auth_token', auth_token)]
 			stub.delete(request=request, metadata=metadata)

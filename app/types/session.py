@@ -11,11 +11,6 @@ class Session(ObjectType):
     active = Boolean()
 
 class SessionNotIdInput(InputObjectType):
-    app = String(required=True)
-    user = String(required=True)
-    ip = String(required=True)
-    location = String(required=True)
-    userAgent = String(required=True)
     valid = Boolean(required=True)
     active = Boolean(required=True)
 

@@ -3,17 +3,19 @@ from google.protobuf.json_format import MessageToDict
 from .currency_controller import sender, stub
 from ....types import Currency, CurrencyInput, CurrencyNotIdInput
 from ....utils import message_error, error_log, info_log
+from ....middleware import session_middleware
 import grpc
 
 class CreateCurrency(Mutation):
     class Arguments:
         currency_data = CurrencyNotIdInput(required=True)
-        auth_token=String(required=True)
 
     currency = Field(Currency)
 
-    def mutate(self, info, currency_data, auth_token):
+    @session_middleware
+    def mutate(self, info, currency_data):
         try:
+            auth_token = info.context.headers.get('Authorization')
             request = sender.CurrencyNotIdRequest(**currency_data)
             metadata = [('auth_token', auth_token)]
             response = stub.save(request=request, metadata=metadata)
@@ -32,12 +34,13 @@ class CreateCurrency(Mutation):
 class UpdateCurrency(Mutation):
     class Arguments:
         currency_data = CurrencyInput(required=True)
-        auth_token=String(required=True)
 
     currency = Field(Currency)
 
-    def mutate(self, info, currency_data, auth_token):
+    @session_middleware
+    def mutate(self, info, currency_data):
         try:
+            auth_token = info.context.headers.get('Authorization')
             request = sender.CurrencyRequest(**currency_data)
             metadata = [('auth_token', auth_token)]
             response = stub.update(request=request, metadata=metadata)
@@ -56,12 +59,13 @@ class UpdateCurrency(Mutation):
 class DeleteCurrency(Mutation):
     class Arguments:
         id = String(required=True)
-        auth_token=String(required=True)
 
     ok = Boolean()
 
-    def mutate(self, info, id, auth_token):
+    @session_middleware
+    def mutate(self, info, id):
         try:
+            auth_token = info.context.headers.get('Authorization')
             request = sender.CurrencyIdRequest(id=id)
             metadata = [('auth_token', auth_token)]
             

@@ -29,7 +29,7 @@ def client_seeder(name):
     
 def regenerate_client_key():
     try:
-        clients = Client.objects()
+        clients = Client.objects(app_name=APP_NAME)
 
         selection = {}
 

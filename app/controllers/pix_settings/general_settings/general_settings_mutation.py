@@ -3,17 +3,19 @@ from ....types import GeneralSetting, GeneralSettingInput, GeneralSettingNotIdIn
 from .general_settings_controller import sender, stub
 from google.protobuf.json_format import MessageToDict
 from ....utils import message_error, error_log, info_log
+from ....middleware import session_middleware
 import grpc
 
 class CreateGeneralSetting(Mutation):
 	class Arguments:
 		general_data = GeneralSettingNotIdInput(required=True)
-		auth_token = String(required=True)
 
 	general = Field(GeneralSetting)
 
-	def mutate(self, info, general_data, auth_token):
+	@session_middleware
+	def mutate(self, info, general_data):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.GeneralSettingNotIdRequest(**general_data)
 			metadata = [('auth_token', auth_token)]
 
@@ -36,12 +38,13 @@ class CreateGeneralSetting(Mutation):
 class UpdateGeneralSetting(Mutation):
 	class Arguments:
 		general_data = GeneralSettingInput(required=True)
-		auth_token = String(required=True)
 	
 	general = Field(GeneralSetting)
 
-	def mutate(self, info, general_data, auth_token):
+	@session_middleware
+	def mutate(self, info, general_data):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.GeneralSettingRequest(**general_data)
 			metadata = [('auth_token', auth_token)]
 
@@ -60,12 +63,13 @@ class UpdateGeneralSetting(Mutation):
 class DeleteGeneralSetting(Mutation):
 	class Arguments:
 		id = String(required=True)
-		auth_token = String(required=True)
 
 	ok = Boolean()
 
-	def mutate(self, info, id, auth_token):
+	@session_middleware
+	def mutate(self, info, id):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.GeneralSettingIdRequest(id=id)
 			metadata = [('auth_token', auth_token)]
 

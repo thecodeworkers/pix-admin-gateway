@@ -3,17 +3,19 @@ from ....types import State, StateInput, StateNotIdInput
 from .state_controller import sender, stub
 from google.protobuf.json_format import MessageToDict
 from ....utils import message_error, info_log, error_log
+from ....middleware import session_middleware
 import grpc
 
 class CreateState(Mutation):
 	class Arguments:
 		state_data = StateNotIdInput(required=True)
-		auth_token = String(required=True)
 	
 	state = Field(State)
 
-	def mutate(self, info, state_data, auth_token):
+	@session_middleware
+	def mutate(self, info, state_data):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.StateNotIdRequest(**state_data)
 			metadata = [('auth_token', auth_token)]
 
@@ -33,12 +35,13 @@ class CreateState(Mutation):
 class UpdateState(Mutation):
 	class Arguments:
 		state_data = StateInput(required=True)
-		auth_token = String(required=True)
 
 	state = Field(State)
 
-	def mutate(self, info, state_data, auth_token):
+	@session_middleware
+	def mutate(self, info, state_data):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.StateRequest(**state_data)
 			metadata = [('auth_token', auth_token)]
 
@@ -58,12 +61,13 @@ class UpdateState(Mutation):
 class DeleteState(Mutation):
 	class Arguments:
 		id = String(required=True)
-		auth_token = String(required=True)
 
 	ok = Boolean()
 
-	def mutate(self, info, id, auth_token):
+	@session_middleware
+	def mutate(self, info, id):
 		try:
+			auth_token = info.context.headers.get('Authorization')
 			request = sender.StateIdRequest(id=id)
 			metadata = [('auth_token', auth_token)]
 

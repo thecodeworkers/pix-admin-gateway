@@ -1,8 +1,10 @@
 from graphene import ObjectType, Field, List, Mutation, String, Boolean
 from google.protobuf.json_format import MessageToDict
-from .auth_controller import sender, stub
+from .auth_controller import sender, stub, session_sender, session_stub
 from ....types import Auth, AuthObject
 from ....utils import message_error, info_log, error_log
+from ....constants import APP_NAME
+from ....mail import verification_session_email
 import grpc
 
 class SignIn(Mutation):
@@ -17,6 +19,26 @@ class SignIn(Mutation):
             request = sender.SigninRequest(**auth_data)
             response = stub.signin(request)
             response = MessageToDict(response)
+
+            session_data = {
+                'ip': info.context.remote_addr,
+                'app': APP_NAME,
+                'location': 'TEST',
+                'userAgent': info.context.headers.get('User-Agent'),
+                'valid': False,
+                'active': True,
+            }
+
+            request_session = session_sender.SessionNotIdRequest(**session_data)
+
+            metadata = [('auth_token', response['authToken'])]
+            
+            session_response = session_stub.save(request=request_session, metadata=metadata)
+            session_response = MessageToDict(session_response)
+
+            if not session_response['session']['valid']:
+                verification_session_email('hola', 'jorgebastidas9@gmail.com', session_response['session'])
+                raise Exception('invalid_session')
 
             info_log(info.context.remote_addr, "Sign In Authentication", "authentication_microservice", "SignIn")
             return SignIn(**response)
