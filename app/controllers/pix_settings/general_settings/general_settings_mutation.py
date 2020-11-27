@@ -18,8 +18,6 @@ class CreateGeneralSetting(Mutation):
 			auth_token = info.context.headers.get('Authorization')
 			request = sender.GeneralSettingNotIdRequest(**general_data)
 			metadata = [('auth_token', auth_token)]
-
-			print(request)
 			
 			response = stub.save(request=request, metadata=metadata)
 			
