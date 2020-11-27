@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto2',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\rsession.proto\"\x0e\n\x0cSessionEmpty\"\x1e\n\x10SessionIdRequest\x12\n\n\x02id\x18\x01 \x02(\t\"2\n\x11SessionOneRequest\x12\x11\n\tuserAgent\x18\x01 \x02(\t\x12\n\n\x02ip\x18\x02 \x02(\t\"\x80\x01\n\x13SessionNotIdRequest\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\x0b\n\x03\x61pp\x18\x02 \x02(\t\x12\n\n\x02ip\x18\x03 \x02(\t\x12\x10\n\x08location\x18\x04 \x02(\t\x12\x11\n\tuserAgent\x18\x05 \x02(\t\x12\r\n\x05valid\x18\x06 \x02(\x08\x12\x0e\n\x06\x61\x63tive\x18\x07 \x02(\x08\"\x87\x01\n\x0eSessionRequest\x12\n\n\x02id\x18\x01 \x02(\t\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x0b\n\x03\x61pp\x18\x03 \x02(\t\x12\n\n\x02ip\x18\x04 \x02(\t\x12\x10\n\x08location\x18\x05 \x02(\t\x12\x11\n\tuserAgent\x18\x06 \x02(\t\x12\r\n\x05valid\x18\x07 \x02(\x08\x12\x0e\n\x06\x61\x63tive\x18\x08 \x02(\x08\"I\n\x13SessionTableRequest\x12\x0c\n\x04page\x18\x01 \x02(\x05\x12\x14\n\x08per_page\x18\x02 \x01(\x05:\x02\x31\x35\x12\x0e\n\x06search\x18\x03 \x01(\t\"3\n\x0fSessionResponse\x12 \n\x07session\x18\x01 \x02(\x0b\x32\x0f.SessionRequest\";\n\x17SessionMultipleResponse\x12 \n\x07session\x18\x01 \x03(\x0b\x32\x0f.SessionRequest\"~\n\x14SessionTableResponse\x12\x1e\n\x05items\x18\x01 \x03(\x0b\x32\x0f.SessionRequest\x12\x0c\n\x04page\x18\x02 \x02(\x05\x12\x10\n\x08per_page\x18\x03 \x02(\x05\x12\x13\n\x0btotal_items\x18\x04 \x02(\x05\x12\x11\n\tnum_pages\x18\x05 \x02(\x05\x32\xa9\x02\n\x07Session\x12\x34\n\x05table\x12\x14.SessionTableRequest\x1a\x15.SessionTableResponse\x12\x32\n\x07get_all\x12\r.SessionEmpty\x1a\x18.SessionMultipleResponse\x12+\n\x03get\x12\x12.SessionOneRequest\x1a\x10.SessionResponse\x12.\n\x04save\x12\x14.SessionNotIdRequest\x1a\x10.SessionResponse\x12+\n\x06update\x12\x0f.SessionRequest\x1a\x10.SessionResponse\x12*\n\x06\x64\x65lete\x12\x11.SessionIdRequest\x1a\r.SessionEmpty'
+  serialized_pb=b'\n\rsession.proto\"\x0e\n\x0cSessionEmpty\"\x1e\n\x10SessionIdRequest\x12\n\n\x02id\x18\x01 \x02(\t\"2\n\x11SessionOneRequest\x12\x11\n\tuserAgent\x18\x01 \x02(\t\x12\n\n\x02ip\x18\x02 \x02(\t\"\x80\x01\n\x13SessionNotIdRequest\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\x0b\n\x03\x61pp\x18\x02 \x02(\t\x12\n\n\x02ip\x18\x03 \x02(\t\x12\x10\n\x08location\x18\x04 \x02(\t\x12\x11\n\tuserAgent\x18\x05 \x02(\t\x12\r\n\x05valid\x18\x06 \x02(\x08\x12\x0e\n\x06\x61\x63tive\x18\x07 \x02(\x08\"\x87\x01\n\x0eSessionRequest\x12\n\n\x02id\x18\x01 \x02(\t\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x0b\n\x03\x61pp\x18\x03 \x01(\t\x12\n\n\x02ip\x18\x04 \x01(\t\x12\x10\n\x08location\x18\x05 \x01(\t\x12\x11\n\tuserAgent\x18\x06 \x01(\t\x12\r\n\x05valid\x18\x07 \x02(\x08\x12\x0e\n\x06\x61\x63tive\x18\x08 \x02(\x08\"I\n\x13SessionTableRequest\x12\x0c\n\x04page\x18\x01 \x02(\x05\x12\x14\n\x08per_page\x18\x02 \x01(\x05:\x02\x31\x35\x12\x0e\n\x06search\x18\x03 \x01(\t\"3\n\x0fSessionResponse\x12 \n\x07session\x18\x01 \x02(\x0b\x32\x0f.SessionRequest\";\n\x17SessionMultipleResponse\x12 \n\x07session\x18\x01 \x03(\x0b\x32\x0f.SessionRequest\"~\n\x14SessionTableResponse\x12\x1e\n\x05items\x18\x01 \x03(\x0b\x32\x0f.SessionRequest\x12\x0c\n\x04page\x18\x02 \x02(\x05\x12\x10\n\x08per_page\x18\x03 \x02(\x05\x12\x13\n\x0btotal_items\x18\x04 \x02(\x05\x12\x11\n\tnum_pages\x18\x05 \x02(\x05\x32\xa9\x02\n\x07Session\x12\x34\n\x05table\x12\x14.SessionTableRequest\x1a\x15.SessionTableResponse\x12\x32\n\x07get_all\x12\r.SessionEmpty\x1a\x18.SessionMultipleResponse\x12+\n\x03get\x12\x12.SessionOneRequest\x1a\x10.SessionResponse\x12.\n\x04save\x12\x14.SessionNotIdRequest\x1a\x10.SessionResponse\x12+\n\x06update\x12\x0f.SessionRequest\x1a\x10.SessionResponse\x12*\n\x06\x64\x65lete\x12\x11.SessionIdRequest\x1a\r.SessionEmpty'
 )
 
 
@@ -219,28 +219,28 @@ _SESSIONREQUEST = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='app', full_name='SessionRequest.app', index=2,
-      number=3, type=9, cpp_type=9, label=2,
+      number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='ip', full_name='SessionRequest.ip', index=3,
-      number=4, type=9, cpp_type=9, label=2,
+      number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='location', full_name='SessionRequest.location', index=4,
-      number=5, type=9, cpp_type=9, label=2,
+      number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='userAgent', full_name='SessionRequest.userAgent', index=5,
-      number=6, type=9, cpp_type=9, label=2,
+      number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
