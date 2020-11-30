@@ -37,17 +37,17 @@ class SignIn(Mutation):
             session_response = MessageToDict(session_response)
 
             if not session_response['session']['valid']:
-                verification_session_email('hola', 'jorgebastidas9@gmail.com', session_response['session'])
+                verification_session_email('validation_email', response['auth']['email'], session_response['session'])
                 raise Exception('invalid_session')
 
-            info_log(info.context.remote_addr, "Sign In Authentication", "authentication_microservice", "SignIn")
+            info_log(info.context.remote_addr, 'Sign In Authentication', 'authentication_microservice', 'SignIn')
             return SignIn(**response)
 
         except grpc.RpcError as e:
-            error_log(info.context.remote_addr, e.details(), "authentication_microservice", type(e).__name__)
+            error_log(info.context.remote_addr, e.details(), 'authentication_microservice', type(e).__name__)
             raise Exception(message_error(e))
         except Exception as e:
-            error_log(info.context.remote_addr, e.args[0], "authentication_microservice", type(e).__name__)
+            error_log(info.context.remote_addr, e.args[0], 'authentication_microservice', type(e).__name__)
             raise Exception(e.args[0])
 
 

@@ -41,7 +41,7 @@ def session_middleware(f):
             
             return f(*args, **kwargs)
         except grpc.RpcError as e:
-            error_log(request.remote_addr, e.details(), "pix_settings_microservice", type(e).__name__)
+            error_log(request.remote_addr, e.details(), 'pix_settings_microservice', type(e).__name__)
             raise Exception(message_error(e))
         except Exception as e:
             error_log(request.remote_addr, e.args[0] , APP_NAME, type(e).__name__)

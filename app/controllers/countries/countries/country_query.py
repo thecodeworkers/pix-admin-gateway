@@ -19,11 +19,11 @@ class CountryQuery(ObjectType):
 			response = stub.get_all(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
-			info_log(info.context.remote_addr, "consult of countries", "countries_microservice", "CountryQuery")
+			info_log(info.context.remote_addr, 'consult of countries', 'countries_microservice', 'CountryQuery')
 			if 'country' in response:
 				count = 0
 				for country in response['country']:
-					country['phone_prefix'] = country["phonePrefix"]
+					country['phone_prefix'] = country['phonePrefix']
 					del country['phonePrefix']
 					response['country'][count] = country
 					count+=1
@@ -33,10 +33,10 @@ class CountryQuery(ObjectType):
 			return response
 
 		except grpc.RpcError as e:
-			error_log(info.context.remote_addr, e.details(), "countries_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.details(), 'countries_microservice', type(e).__name__)
 			raise Exception(message_error(e))
 		except Exception as e:
-			error_log(info.context.remote_addr, e.args[0], "countries_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.args[0], 'countries_microservice', type(e).__name__)
 			raise Exception(e.args[0])
 	
 	@session_middleware
@@ -48,16 +48,16 @@ class CountryQuery(ObjectType):
 			response = stub.get(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
-			info_log(info.context.remote_addr, "consult of one country", "countries_microservice", "CountryQuery")
+			info_log(info.context.remote_addr, 'consult of one country', 'countries_microservice', 'CountryQuery')
 			if 'country' in response:
-				response['country']['phone_prefix'] = response['country']["phonePrefix"]
+				response['country']['phone_prefix'] = response['country']['phonePrefix']
 				del response['country']['phonePrefix']
 				return response['country']
 
 			return response	
 		except grpc.RpcError as e:
-			error_log(info.context.remote_addr, e.details(), "countries_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.details(), 'countries_microservice', type(e).__name__)
 			raise Exception(message_error(e))
 		except Exception as e:
-			error_log(info.context.remote_addr, e.args[0], "countries_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.args[0], 'countries_microservice', type(e).__name__)
 			raise Exception(e.args[0])

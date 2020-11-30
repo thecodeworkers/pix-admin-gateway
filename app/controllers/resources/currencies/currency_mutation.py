@@ -21,14 +21,14 @@ class CreateCurrency(Mutation):
             response = stub.save(request=request, metadata=metadata)
             response = MessageToDict(response)
             
-            info_log(info.context.remote_addr, "Create of Currency", "resources_microservice", "CreateCurrency")
+            info_log(info.context.remote_addr, 'Create of Currency', 'resources_microservice', 'CreateCurrency')
             return CreateCurrency(**response)
             
         except grpc.RpcError as e:
-            error_log(info.context.remote_addr, e.details(), "resources_microservice", type(e).__name__)
+            error_log(info.context.remote_addr, e.details(), 'resources_microservice', type(e).__name__)
             raise Exception(message_error(e))
         except Exception as e:
-            error_log(info.context.remote_addr, e.args[0], "resources_microservice", type(e).__name__)
+            error_log(info.context.remote_addr, e.args[0], 'resources_microservice', type(e).__name__)
             raise Exception(e.args[0])
 
 class UpdateCurrency(Mutation):
@@ -46,14 +46,14 @@ class UpdateCurrency(Mutation):
             response = stub.update(request=request, metadata=metadata)
             response = MessageToDict(response)
             
-            info_log(info.context.remote_addr, "Update of Currency", "resources_microservice", "UpdateCurrency")
+            info_log(info.context.remote_addr, 'Update of Currency', 'resources_microservice', 'UpdateCurrency')
             return UpdateCurrency(**response)
 
         except grpc.RpcError as e:
-            error_log(info.context.remote_addr, e.details(), "resources_microservice", type(e).__name__)
+            error_log(info.context.remote_addr, e.details(), 'resources_microservice', type(e).__name__)
             raise Exception(message_error(e))
         except Exception as e:
-            error_log(info.context.remote_addr, e.args[0], "resources_microservice", type(e).__name__)
+            error_log(info.context.remote_addr, e.args[0], 'resources_microservice', type(e).__name__)
             raise Exception(e.args[0])
 
 class DeleteCurrency(Mutation):
@@ -71,14 +71,14 @@ class DeleteCurrency(Mutation):
             
             stub.delete(request=request, metadata=metadata)
 
-            info_log(info.context.remote_addr, "Delete of Currency", "resources_microservice", "DeleteCurrency")
+            info_log(info.context.remote_addr, 'Delete of Currency', 'resources_microservice', 'DeleteCurrency')
             return DeleteCurrency(ok=True)
 
         except grpc.RpcError as e:
-            error_log(info.context.remote_addr, e.details(), "resources_microservice", type(e).__name__)
+            error_log(info.context.remote_addr, e.details(), 'resources_microservice', type(e).__name__)
             raise Exception(message_error(e))
         except Exception as e:
-            error_log(info.context.remote_addr, e.args[0], "resources_microservice", type(e).__name__)
+            error_log(info.context.remote_addr, e.args[0], 'resources_microservice', type(e).__name__)
             raise Exception(e.args[0])
 
 class CurrencyMutation(ObjectType):

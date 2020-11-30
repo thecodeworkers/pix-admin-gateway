@@ -18,17 +18,17 @@ class SessionQuery(ObjectType):
 			metadata = [('auth_token', auth_token)]
 			response = stub.get_all(request=request, metadata=metadata)
 			response = MessageToDict(response)
-			info_log(info.context.remote_addr, "consult of session settings", "pix_settings_microservice", "SessionQuery")
+			info_log(info.context.remote_addr, 'consult of session settings', 'pix_settings_microservice', 'SessionQuery')
 			if 'session' in response:
 				return response['session']
 
 			return response
 
 		except grpc.RpcError as e:
-			error_log(info.context.remote_addr, e.details(), "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.details(), 'pix_settings_microservice', type(e).__name__)
 			raise Exception(message_error(e))
 		except Exception as e:
-			error_log(info.context.remote_addr, e.args[0], "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.args[0], 'pix_settings_microservice', type(e).__name__)
 			raise Exception(e.args[0])
 
 	@session_middleware
@@ -40,14 +40,14 @@ class SessionQuery(ObjectType):
 			response = stub.get(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
-			info_log(info.context.remote_addr, "consult of one session setting", "pix_settings_microservice", "SessionQuery")
+			info_log(info.context.remote_addr, 'consult of one session setting', 'pix_settings_microservice', 'SessionQuery')
 			if 'session' in response:
 				return response['session']
 			
 			return response
 		except grpc.RpcError as e:
-			error_log(info.context.remote_addr, e.details(), "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.details(), 'pix_settings_microservice', type(e).__name__)
 			raise Exception(message_error(e))
 		except Exception as e:
-			error_log(info.context.remote_addr, e.args[0], "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.args[0], 'pix_settings_microservice', type(e).__name__)
 			raise Exception(e.args[0])

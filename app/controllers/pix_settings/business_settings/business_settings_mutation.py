@@ -25,14 +25,14 @@ class CreateBusinessSetting(Mutation):
 			
 			response = MessageToDict(response)
 			
-			info_log(info.context.remote_addr, "Create of Business setting", "pix_settings_microservice", "CreateBusinessSetting")
+			info_log(info.context.remote_addr, 'Create of Business setting', 'pix_settings_microservice', 'CreateBusinessSetting')
 			return CreateBusinessSetting(**response)
 
 		except grpc.RpcError as e:
-			error_log(info.context.remote_addr, e.details(), "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.details(), 'pix_settings_microservice', type(e).__name__)
 			raise Exception(message_error(e))
 		except Exception as e:
-			error_log(info.context.remote_addr, e.args[0], "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.args[0], 'pix_settings_microservice', type(e).__name__)
 			raise Exception(e.args[0])
 
 class UpdateBusinessSetting(Mutation):
@@ -50,14 +50,14 @@ class UpdateBusinessSetting(Mutation):
 
 			response = stub.update(request=request, metadata=metadata)
 			response = MessageToDict(response)
-			info_log(info.context.remote_addr, "Update of Business setting", "pix_settings_microservice", "UpdateBusinessSetting")
+			info_log(info.context.remote_addr, 'Update of Business setting', 'pix_settings_microservice', 'UpdateBusinessSetting')
 			return UpdateBusinessSetting(**response)
 
 		except grpc.RpcError as e:
-			error_log(info.context.remote_addr, e.details(), "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.details(), 'pix_settings_microservice', type(e).__name__)
 			raise Exception(message_error(e))
 		except Exception as e:
-			error_log(info.context.remote_addr, e.args[0], "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.args[0], 'pix_settings_microservice', type(e).__name__)
 			raise Exception(e.args[0])
 
 class DeleteBusinessSetting(Mutation):
@@ -74,14 +74,14 @@ class DeleteBusinessSetting(Mutation):
 			metadata = [('auth_token', auth_token)]
 
 			stub.delete(request=request, metadata=metadata)
-			info_log(info.context.remote_addr, "Delete of Business setting", "pix_settings_microservice", "DeleteBusinessSetting")
+			info_log(info.context.remote_addr, 'Delete of Business setting', 'pix_settings_microservice', 'DeleteBusinessSetting')
 			return DeleteBusinessSetting(ok=True)
 
 		except grpc.RpcError as e:
-			error_log(info.context.remote_addr, e.details(), "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.details(), 'pix_settings_microservice', type(e).__name__)
 			raise Exception(message_error(e))
 		except Exception as e:
-			error_log(info.context.remote_addr, e.args[0], "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.args[0], 'pix_settings_microservice', type(e).__name__)
 			raise Exception(e.args[0])
 
 class BusinessSettingMutation(ObjectType):

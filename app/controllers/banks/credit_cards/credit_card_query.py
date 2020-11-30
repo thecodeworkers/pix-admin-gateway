@@ -18,17 +18,17 @@ class CreditCardQuery(ObjectType):
             metadata = [('auth_token', auth_token)]
             response = stub.get_all(request=request, metadata=metadata)
             response = MessageToDict(response)
-            info_log(info.context.remote_addr, "Consult of credits cards", "banks_microservice", "CreditCardQuery")
+            info_log(info.context.remote_addr, 'Consult of credits cards', 'banks_microservice', 'CreditCardQuery')
             if 'credit' in response:
                 return response['credit']
             
             return response
         
         except grpc.RpcError as e:
-            error_log(info.context.remote_addr, e.details(), "banks_microservice", type(e).__name__)
+            error_log(info.context.remote_addr, e.details(), 'banks_microservice', type(e).__name__)
             raise Exception(message_error(e))
         except Exception as e:
-            error_log(info.context.remote_addr, e.args[0], "banks_microservice", type(e).__name__)
+            error_log(info.context.remote_addr, e.args[0], 'banks_microservice', type(e).__name__)
             raise Exception(e.args[0])
     @session_middleware
     def resolve_credit_card(root, info, id):
@@ -38,15 +38,15 @@ class CreditCardQuery(ObjectType):
             metadata = [('auth_token', auth_token)]
             response = stub.get(request=request, metadata=metadata)
             response = MessageToDict(response)
-            info_log(info.context.remote_addr, "Consult of one credit card", "banks_microservice", "CreditCardQuery")
+            info_log(info.context.remote_addr, 'Consult of one credit card', 'banks_microservice', 'CreditCardQuery')
             if 'credit' in response:
                 return response['credit']
         
             return response
         
         except grpc.RpcError as e:
-            error_log(info.context.remote_addr, e.details(), "banks_microservice", type(e).__name__)
+            error_log(info.context.remote_addr, e.details(), 'banks_microservice', type(e).__name__)
             raise Exception(message_error(e))
         except Exception as e:
-            error_log(info.context.remote_addr, e.args[0], "banks_microservice", type(e).__name__)
+            error_log(info.context.remote_addr, e.args[0], 'banks_microservice', type(e).__name__)
             raise Exception(e.args[0])

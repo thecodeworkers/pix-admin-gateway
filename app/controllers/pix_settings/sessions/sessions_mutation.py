@@ -21,14 +21,14 @@ class UpdateSession(Mutation):
 
 			response = stub.update(request=request, metadata=metadata)
 			response = MessageToDict(response)
-			info_log(info.context.remote_addr, "Update of Session", "pix_settings_microservice", "UpdateSession")
+			info_log(info.context.remote_addr, 'Update of Session', 'pix_settings_microservice', 'UpdateSession')
 			return UpdateSession(**response)
 
 		except grpc.RpcError as e:
-			error_log(info.context.remote_addr, e.details(), "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.details(), 'pix_settings_microservice', type(e).__name__)
 			raise Exception(message_error(e))
 		except Exception as e:
-			error_log(info.context.remote_addr, e.args[0], "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.args[0], 'pix_settings_microservice', type(e).__name__)
 			raise Exception(e.args[0])
 
 class DeleteSession(Mutation):
@@ -45,14 +45,14 @@ class DeleteSession(Mutation):
 			metadata = [('auth_token', auth_token)]
 
 			stub.delete(request=request, metadata=metadata)
-			info_log(info.context.remote_addr, "Delete of Session", "pix_settings_microservice", "DeleteSession")
+			info_log(info.context.remote_addr, 'Delete of Session', 'pix_settings_microservice', 'DeleteSession')
 			return DeleteSession(ok=True)
 
 		except grpc.RpcError as e:
-			error_log(info.context.remote_addr, e.details(), "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.details(), 'pix_settings_microservice', type(e).__name__)
 			raise Exception(message_error(e))
 		except Exception as e:
-			error_log(info.context.remote_addr, e.args[0], "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.args[0], 'pix_settings_microservice', type(e).__name__)
 			raise Exception(e.args[0])
 
 class SessionMutation(ObjectType):

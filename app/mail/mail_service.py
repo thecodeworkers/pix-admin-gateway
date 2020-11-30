@@ -14,4 +14,4 @@ def __send_email(subject, recipient, template, data):
     
 def verification_session_email(subject, recipient, data):
     data['WEB_URL'] = WEB_URL
-    __send_email(subject, recipient, "mail/validate_session.html", data)
+    __send_email(subject, recipient, 'mail/validate_session.html', data)

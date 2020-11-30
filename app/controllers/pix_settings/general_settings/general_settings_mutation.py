@@ -23,14 +23,14 @@ class CreateGeneralSetting(Mutation):
 			
 			response = MessageToDict(response)
 			
-			info_log(info.context.remote_addr, "Create of General setting", "pix_settings_microservice", "CreateGeneralSetting")
+			info_log(info.context.remote_addr, 'Create of General setting', 'pix_settings_microservice', 'CreateGeneralSetting')
 			return CreateGeneralSetting(**response)
 
 		except grpc.RpcError as e:
-			error_log(info.context.remote_addr, e.details(), "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.details(), 'pix_settings_microservice', type(e).__name__)
 			raise Exception(message_error(e))
 		except Exception as e:
-			error_log(info.context.remote_addr, e.args[0], "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.args[0], 'pix_settings_microservice', type(e).__name__)
 			raise Exception(e.args[0])
 
 class UpdateGeneralSetting(Mutation):
@@ -48,14 +48,14 @@ class UpdateGeneralSetting(Mutation):
 
 			response = stub.update(request=request, metadata=metadata)
 			response = MessageToDict(response)
-			info_log(info.context.remote_addr, "Update of General setting", "pix_settings_microservice", "UpdateGeneralSetting")
+			info_log(info.context.remote_addr, 'Update of General setting', 'pix_settings_microservice', 'UpdateGeneralSetting')
 			return UpdateGeneralSetting(**response)
 
 		except grpc.RpcError as e:
-			error_log(info.context.remote_addr, e.details(), "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.details(), 'pix_settings_microservice', type(e).__name__)
 			raise Exception(message_error(e))
 		except Exception as e:
-			error_log(info.context.remote_addr, e.args[0], "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.args[0], 'pix_settings_microservice', type(e).__name__)
 			raise Exception(e.args[0])
 
 class DeleteGeneralSetting(Mutation):
@@ -72,14 +72,14 @@ class DeleteGeneralSetting(Mutation):
 			metadata = [('auth_token', auth_token)]
 
 			stub.delete(request=request, metadata=metadata)
-			info_log(info.context.remote_addr, "Delete of General setting", "pix_settings_microservice", "DeleteGeneralSetting")
+			info_log(info.context.remote_addr, 'Delete of General setting', 'pix_settings_microservice', 'DeleteGeneralSetting')
 			return DeleteGeneralSetting(ok=True)
 
 		except grpc.RpcError as e:
-			error_log(info.context.remote_addr, e.details(), "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.details(), 'pix_settings_microservice', type(e).__name__)
 			raise Exception(message_error(e))
 		except Exception as e:
-			error_log(info.context.remote_addr, e.args[0], "pix_settings_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.args[0], 'pix_settings_microservice', type(e).__name__)
 			raise Exception(e.args[0])
 
 class GeneralSettingMutation(ObjectType):

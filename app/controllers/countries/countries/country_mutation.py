@@ -21,14 +21,14 @@ class CreateCountry(Mutation):
 
 			response = stub.save(request=request, metadata=metadata)
 			response = MessageToDict(response)
-			info_log(info.context.remote_addr, "Create of Country", "countries_microservice", "CreateCountry")
+			info_log(info.context.remote_addr, 'Create of Country', 'countries_microservice', 'CreateCountry')
 			return CreateCountry(**response)
 
 		except grpc.RpcError as e:
-			error_log(info.context.remote_addr, e.details(), "countries_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.details(), 'countries_microservice', type(e).__name__)
 			raise Exception(message_error(e))
 		except Exception as e:
-			error_log(info.context.remote_addr, e.args[0], "countries_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.args[0], 'countries_microservice', type(e).__name__)
 			raise Exception(e.args[0])
 
 class UpdateCountry(Mutation):
@@ -47,14 +47,14 @@ class UpdateCountry(Mutation):
 			response = stub.update(request=request, metadata=metadata)
 			response = MessageToDict(response)
 
-			info_log(info.context.remote_addr, "Update of Country", "countries_microservice", "UpdateCountry")
+			info_log(info.context.remote_addr, 'Update of Country', 'countries_microservice', 'UpdateCountry')
 			return UpdateCountry(**response)
 
 		except grpc.RpcError as e:
-			error_log(info.context.remote_addr, e.details(), "countries_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.details(), 'countries_microservice', type(e).__name__)
 			raise Exception(message_error(e))
 		except Exception as e:
-			error_log(info.context.remote_addr, e.args[0], "countries_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.args[0], 'countries_microservice', type(e).__name__)
 			raise Exception(e.args[0])
 
 class DeleteCountry(Mutation):
@@ -71,14 +71,14 @@ class DeleteCountry(Mutation):
 			metadata = [('auth_token', auth_token)]
 			stub.delete(request=request, metadata=metadata)
 
-			info_log(info.context.remote_addr, "Delete of Country", "countries_microservice", "DeleteCountry")
+			info_log(info.context.remote_addr, 'Delete of Country', 'countries_microservice', 'DeleteCountry')
 			return DeleteCountry(ok=True)
 
 		except grpc.RpcError as e:
-			error_log(info.context.remote_addr, e.details(), "countries_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.details(), 'countries_microservice', type(e).__name__)
 			raise Exception(message_error(e))
 		except Exception as e:
-			error_log(info.context.remote_addr, e.args[0], "countries_microservice", type(e).__name__)
+			error_log(info.context.remote_addr, e.args[0], 'countries_microservice', type(e).__name__)
 			raise Exception(e.args[0])
 
 class CountryMutation(ObjectType):

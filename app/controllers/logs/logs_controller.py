@@ -27,7 +27,7 @@ def export_logs():
         if type_export == 'excel':
             data = {'columns': columns, 'data': data}
     
-        response = download_file(type_export, data, "Logs")
+        response = download_file(type_export, data, 'Logs')
 
         return response
     except Exception as e:

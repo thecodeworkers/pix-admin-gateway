@@ -22,9 +22,9 @@ def generation_keys():
 
 
 def __generate_keys():
-    if APP_KEY == "":
+    if APP_KEY == '':
         error_log('local', 'APP_KEY DOESNT EXIST', APP_NAME, 'APP_KEY Exception')
-        raise Exception("Set APP_KEY in .env file")
+        raise Exception('Set APP_KEY in .env file')
 
     private_key = rsa.generate_private_key(
         public_exponent=65537,
@@ -59,13 +59,13 @@ def __generate_keys():
 
 def generate_app_keys(name, expiration_date):
 
-    with open(os.path.dirname(__file__) + '/../keys/public.pem', "rb") as key_file:
+    with open(os.path.dirname(__file__) + '/../keys/public.pem', 'rb') as key_file:
         public_key = serialization.load_pem_public_key(
             key_file.read(),
             backend=default_backend()
         )
 
-    app_data = {"app_name": APP_NAME, "client_name": name, "exp": expiration_date}
+    app_data = {'app_name': APP_NAME, 'client_name': name, 'exp': expiration_date}
 
     public_app_key = public_key.encrypt(dumps(app_data).encode('utf-8'), padding.OAEP(
         mgf=padding.MGF1(algorithm=hashes.SHA256()),
@@ -75,7 +75,7 @@ def generate_app_keys(name, expiration_date):
     )
 
     keys = {
-        "api_key": b64encode(public_app_key).decode('utf-8')
+        'api_key': b64encode(public_app_key).decode('utf-8')
     }
 
     return keys
@@ -83,12 +83,12 @@ def generate_app_keys(name, expiration_date):
 
 def verify_signature(api_token):
 
-    if APP_KEY == "":
-        raise Exception("Set APP_KEY in .env file")
+    if APP_KEY == '':
+        raise Exception('Set APP_KEY in .env file')
 
     try:
 
-        with open(os.path.dirname(__file__) + '/../keys/private.pem', "rb") as key_file:
+        with open(os.path.dirname(__file__) + '/../keys/private.pem', 'rb') as key_file:
             private_key = serialization.load_pem_private_key(
                 key_file.read(),
                 password=b64decode(APP_KEY),
@@ -101,21 +101,21 @@ def verify_signature(api_token):
             label=None
         ))
     except InvalidSignature as bad_signature:
-        raise InvalidSignature("Invalid Signature")
+        raise InvalidSignature('Invalid Signature')
     except Exception as invalid_key:
-        raise Exception("Bad Decryption")
+        raise Exception('Bad Decryption')
 
     app_data = loads(public_data)
 
     if app_data['app_name'] != APP_NAME:
-        raise Exception("Api Key is Invalid")
+        raise Exception('Api Key is Invalid')
     try:
         client = Client.objects.get(name=app_data['client_name'])
     except Client.DoesNotExist as no_exist:
-        raise Client.DoesNotExist("Client doesn't Exists")
+        raise Client.DoesNotExist('Client doesn\'t Exists')
 
     if not client.active:
-        raise Exception("Client is inactive")
+        raise Exception('Client is inactive')
 
     if datetime.fromtimestamp(app_data['exp']) < datetime.now():
-        raise Exception("Api Key is expired, please generated a new one")
+        raise Exception('Api Key is expired, please generated a new one')
