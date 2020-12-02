@@ -5,8 +5,8 @@ from datetime import datetime
 
 def error_log(ip, error, services, name):
     data = {
-        "ip": ip,
-        "log_type": 'ERROR',
+        'ip': ip,
+        'log_type': 'ERROR',
         'app': APP_NAME,
         'name': name,
         'description': error,
@@ -14,7 +14,7 @@ def error_log(ip, error, services, name):
     }
 
     time = datetime.now()
-    log = "{} - {} - {} - {} - {}".format(ip, time, services, name, error)
+    log = '{} - {} - {} - {} - {}'.format(ip, time, services, name, error)
 
     logging.error(log)
 
@@ -22,8 +22,8 @@ def error_log(ip, error, services, name):
 
 def info_log(ip, description, services, name):
     data = {
-        "ip": ip,
-        "log_type": 'INFO',
+        'ip': ip,
+        'log_type': 'INFO',
         'app': APP_NAME,
         'name': name,
         'description': description,
@@ -31,7 +31,7 @@ def info_log(ip, description, services, name):
     }
 
     time = datetime.now()
-    log = "{} - {} - {} - {} - {}".format(ip, time, services, name, description)
+    log = '{} - {} - {} - {} - {}'.format(ip, time, services, name, description)
     
     logging.info(log)
 

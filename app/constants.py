@@ -24,7 +24,16 @@ RESOURCES_HOST = os.getenv('RESOURCES_HOST', 'localhost:50051')
 AUTHENTICATION_HOST = os.getenv('AUTHENTICATION_HOST', 'localhost:50050')
 BANKS_HOST = os.getenv('BANKS_HOST', 'localhost:50054')
 COUNTRIES_HOST = os.getenv('COUNTRIES_HOST', 'localhost:50053')
+PIX_SETTINGS_HOST = os.getenv('PIX_SETTINGS_HOST', 'localhost:50055')
 
-APP_NAME = os.getenv('APP_NAME', "ADMIN_GATEWAY")
-APP_KEY = os.getenv('APP_KEY', "")
+APP_NAME = os.getenv('APP_NAME', 'ADMIN_GATEWAY')
+APP_KEY = os.getenv('APP_KEY', '')
+WEB_URL = os.getenv('WEB_URL', 'http://localhost')
 
+
+MAIL_SERVER = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
+MAIL_PORT = os.getenv('MAIL_PORT', '465')
+MAIL_USERNAME = os.getenv('MAIL_USERNAME', '')
+MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', '')
+MAIL_USE_SSL = os.getenv('MAIL_USE_SSL', True)
+MAIL_USE_TLS = os.getenv('MAIL_USE_TLS', False)

@@ -4,8 +4,8 @@ import math
 def pdf_convertion(name, data):
 
     pdf = FPDF()
-    pdf.set_font("Arial", size=8)
-    pdf.add_page(orientation="L")
+    pdf.set_font('Arial', size=8)
+    pdf.add_page(orientation='L')
 
     column_width = len(data[0]) + 0.5
 
@@ -15,7 +15,7 @@ def pdf_convertion(name, data):
     for row in data:
         position_y = pdf.get_y()
         if position_y >= 165:
-            pdf.add_page(orientation="L")
+            pdf.add_page(orientation='L')
             position_y = pdf.get_y()
     
         text_length = 0
