@@ -13,7 +13,7 @@ def page_not_found(error):
 
 @app.errorhandler(Exception)
 def exception_occur(error):
-    return { 'result': error.args[0]}, 500
+    return { 'result': error.args[0] if len(error.args) else error.args}, 500
 
 graphql_routes()
 rest_routes()
