@@ -1,6 +1,9 @@
 from graphene import *
+class CityNotId(ObjectType):
+	state = String()
+	name = String()
 
-class City(ObjectType):
+class City(CityNotId):
 	id = String()
 	state = String()
 	name = String()
