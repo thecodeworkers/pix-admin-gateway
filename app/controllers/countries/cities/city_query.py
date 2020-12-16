@@ -1,17 +1,30 @@
-from graphene import ObjectType, List, Field, String
+from graphene import ObjectType, List, Field, String, Int, Connection, ConnectionField
 from google.protobuf.json_format import MessageToDict
 from .city_controller import sender, stub
-from ....types import City
-from ....utils import message_error, error_log, info_log
+from ....types import City, CityNotId
+from ....utils import message_error, error_log, info_log, CustomNode
 from ....middleware import session_middleware
 import grpc
 
+class CityNodeType(CityNotId):
+	class Meta:
+		interfaces = (CustomNode, )
+
+class CityConnection(Connection):
+	
+	count = Int()
+	class Meta:
+		node = CityNodeType
+
+	def resolve_count(root, info):
+		return len(root.edges)
+
 class CityQuery(ObjectType):
-	cities = List(City)
+	cities = ConnectionField(CityConnection)
 	city = Field(City, id=String(required=True))
 
 	@session_middleware
-	def resolve_cities(root, info):
+	def resolve_cities(root, info, first):
 		try:
 			auth_token = info.context.headers.get('Authorization')
 			request = sender.CityEmpty()

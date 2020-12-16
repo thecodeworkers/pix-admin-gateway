@@ -1,10 +1,13 @@
 from graphene import *
 
-class State(ObjectType):
-	id = String()
+class StateNotId(ObjectType):
 	country = String()
 	name = String()
 	cities = String()
+
+class State(StateNotId):
+	id = String()
+
 
 class StateNotIdInput(InputObjectType):
 	country = String(required=True)

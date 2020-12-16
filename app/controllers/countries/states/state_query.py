@@ -1,17 +1,30 @@
-from graphene import ObjectType, List, Field, String
+from graphene import ObjectType, List, Field, String, Node, Connection, ConnectionField, Int
 from google.protobuf.json_format import MessageToDict
 from .state_controller import sender, stub
-from ....types import State
-from ....utils import message_error, info_log, error_log
+from ....types import StateNotId, State
+from ....utils import message_error, info_log, error_log, CustomNode
 from ....middleware import session_middleware
 import grpc
 
+class StateNodeType(StateNotId):
+	class Meta:
+		interfaces = (CustomNode, )
+
+class StateConnection(Connection):
+	
+	count = Int()
+	class Meta:
+		node = StateNodeType
+
+	def resolve_count(root, info):
+		return len(root.edges)
+
 class StateQuery(ObjectType):
-	states = List(State)
+	states = ConnectionField(StateConnection)
 	state = Field(State, id=String(required=True))
 
 	@session_middleware
-	def resolve_states(root, info):
+	def resolve_states(root, info, **kwargs):
 		try:
 			auth_token = info.context.headers.get('Authorization')
 			request = sender.StateEmpty()
