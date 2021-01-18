@@ -1,5 +1,5 @@
 from graphene import *
-
+from .table import Table
 class Role(ObjectType):
     id = String()
     name = String()
@@ -11,6 +11,8 @@ class RoleNotIdInput(InputObjectType):
     code = String(required=True)
     scopes = String(required=True)
 
-
 class RoleInput(RoleNotIdInput):
     id = String(required=True)
+
+class RoleTable(Table):
+    items = List(Role)

@@ -1,5 +1,5 @@
 from graphene import *
-
+from .table import Table
 class StateNotId(ObjectType):
 	country = String()
 	name = String()
@@ -16,3 +16,6 @@ class StateNotIdInput(InputObjectType):
 
 class StateInput(StateNotIdInput):
 	id = String(required=True)
+
+class StateTable(Table):
+    items = List(State)
