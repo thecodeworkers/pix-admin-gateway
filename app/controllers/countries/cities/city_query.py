@@ -5,6 +5,7 @@ from ....types import City, CityNotId, CityTable
 from ....utils import message_error, error_log, info_log, CustomNode
 from ....middleware import session_middleware
 import grpc
+import re
 
 class CityNodeType(CityNotId):
 	class Meta:
@@ -20,18 +21,19 @@ class CityConnection(Connection):
 		return len(root.edges)
 
 class CityQuery(ObjectType):
-	cities = ConnectionField(CityConnection)
+	cities = ConnectionField(CityConnection, search=String())
 	city = Field(City, id=String(required=True))
 	cities_table = Field(CityTable, search=String(required=True), per_page=Int(required=True), page=Int(required=True))
 
 	@session_middleware
-	def resolve_cities(root, info, first):
+	def resolve_cities(root, info, first, search):
 		try:
 			auth_token = info.context.headers.get('Authorization')
 			request = sender.CityEmpty()
 			metadata = [('auth_token', auth_token)]
 			response = stub.get_all(request=request, metadata=metadata)
 			response = MessageToDict(response)
+			if search: response = list(filter(lambda data: re.search(search+".*", data['name']), response['city']))
 			
 			info_log(info.context.remote_addr, 'consult of cities', 'countries_microservice', 'CityQuery')
 			if 'city' in response:
