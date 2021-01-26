@@ -33,7 +33,7 @@ class CityQuery(ObjectType):
 			metadata = [('auth_token', auth_token)]
 			response = stub.get_all(request=request, metadata=metadata)
 			response = MessageToDict(response)
-			if search: response = list(filter(lambda data: re.search(search+".*", data['name']), response['city']))
+			if search: response = list(filter(lambda data: re.search(search, data['name'], flags=re.IGNORECASE), response['city']))
 			
 			info_log(info.context.remote_addr, 'consult of cities', 'countries_microservice', 'CityQuery')
 			if 'city' in response:
