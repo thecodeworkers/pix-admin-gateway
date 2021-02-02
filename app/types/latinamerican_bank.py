@@ -1,5 +1,5 @@
 from graphene import *
-
+from .table import Table
 class LatinAmericanBank(ObjectType):
     id = String()
     bankName = String()
@@ -14,3 +14,7 @@ class LatinAmericanBankNotIdInput(InputObjectType):
 
 class LatinAmericanBankInput(LatinAmericanBankNotIdInput):
     id = String(required=True)
+
+class LatinAmericanBankTable(Table):
+    items = List(LatinAmericanBank)
+

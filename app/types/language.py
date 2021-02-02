@@ -1,5 +1,5 @@
-from graphene import ObjectType, String, Float, Boolean, InputObjectType
-
+from graphene import ObjectType, String, Float, Boolean, InputObjectType, List
+from .table import Table
 class Language(ObjectType):
     id = String()
     name = String()
@@ -13,3 +13,6 @@ class LanguageNotIdInput(InputObjectType):
 
 class LanguageInput(LanguageNotIdInput):
     id = String(required=True)
+    
+class LanguageTable(Table):
+    items = List(Language)

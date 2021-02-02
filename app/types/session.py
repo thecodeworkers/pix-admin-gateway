@@ -1,5 +1,5 @@
 from graphene import *
-
+from .table import Table
 class Session(ObjectType):
     id = String()
     app = String()
@@ -16,3 +16,6 @@ class SessionNotIdInput(InputObjectType):
 
 class SessionInput(SessionNotIdInput):
     id = String(required=True)
+
+class SessionTable(Table):
+    items = List(Session)

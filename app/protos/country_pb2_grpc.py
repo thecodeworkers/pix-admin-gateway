@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from app.protos import country_pb2 as country__pb2
+from . import country_pb2 as country__pb2
 
 
 class CountryStub(object):

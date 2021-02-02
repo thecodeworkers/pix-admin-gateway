@@ -1,5 +1,5 @@
 from graphene import *
-
+from .table import Table
 class Currency(ObjectType):
     id = String()
     name = String()
@@ -19,3 +19,6 @@ class CurrencyNotIdInput(InputObjectType):
 
 class CurrencyInput(CurrencyNotIdInput):
     id = String(required=True)
+
+class CurrencyTable(Table):
+    items = List(Currency)
